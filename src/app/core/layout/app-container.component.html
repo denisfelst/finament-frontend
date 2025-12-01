@@ -1,0 +1,15 @@
+<main class="main">
+  <div class="content flex flex-col h-screen">
+    <div class="flex-1 overflow-y-auto">
+      <router-outlet></router-outlet>
+    </div>
+
+    <nav class="h-16 border-t flex justify-around items-center">
+      <a routerLink="/dashboard">Dashboard</a>
+      <a routerLink="/expenses">Expenses</a>
+      <a routerLink="/add-expense">Add</a>
+      <a routerLink="/categories">Categories</a>
+      <a routerLink="/settings">Settings</a>
+    </nav>
+  </div>
+</main>
