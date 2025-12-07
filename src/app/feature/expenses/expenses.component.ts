@@ -22,7 +22,7 @@ export class ExpensesComponent {
     this.loading.set(true);
     this.error.set(null);
 
-    // userId hardcoded until auth exists
+    // TODO: userId hardcoded until auth exists
     this.expenseService.getApiExpenses(1).subscribe({
       next: (res) => {
         this.expenses.set(res);

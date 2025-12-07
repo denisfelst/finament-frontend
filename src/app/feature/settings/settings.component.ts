@@ -24,6 +24,7 @@ export class SettingsComponent {
     this.error.set(null);
 
     this.settingsService.getApiSettings(1).subscribe({
+      // TODO: hardcoded until auth
       next: (res) => {
         this.settings.set(res);
         this.loading.set(false);

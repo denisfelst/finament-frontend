@@ -24,7 +24,7 @@ export class UserComponent {
     this.loading.set(false);
     this.error.set(null);
 
-    // Hardcoded userId until auth exists
+    // TODO: Hardcoded userId until auth exists
     this.userService.getApiUsers1(1).subscribe({
       next: (res) => {
         this.user.set(res);

@@ -23,6 +23,7 @@ export class CategoriesComponent {
     this.error.set(null);
 
     this.categoryService.getApiCategories(1).subscribe({
+      // TODO: hardcoded until auth
       next: (res) => {
         console.log(res);
         this.categories.set(res);
