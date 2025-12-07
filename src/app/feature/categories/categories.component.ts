@@ -1,16 +1,15 @@
 import { Component, signal } from '@angular/core';
 import { CategoryService } from '../../api';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-categories',
-  imports: [NgIf],
+  imports: [],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
 })
 export class CategoriesComponent {
   categories = signal<any[]>([]);
-  loading = signal(true);
+  loading = signal(false);
   error = signal<string | null>(null);
 
   constructor(private categoryService: CategoryService) {}

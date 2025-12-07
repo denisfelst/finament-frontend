@@ -1,0 +1,15 @@
+<p>expenses works!</p>
+
+@if (loading()) {
+<div>Loading...</div>
+} @if (error()) {
+<div>{{ error() }}</div>
+} @if (!loading()) {
+<ul>
+  @for (exp of expenses(); track exp.id) {
+  <li>
+    {{ exp.amount }} — {{ exp.categoryId }} — {{ exp.date }} — #{{ exp.tag }}
+  </li>
+  }
+</ul>
+}
