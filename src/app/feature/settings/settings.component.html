@@ -1,0 +1,12 @@
+<p>settings works!</p>
+
+@if (loading()) {
+<div>Loading...</div>
+} @if (error()) {
+<div>{{ error() }}</div>
+} @if (settings() && !loading()) {
+<div>
+  <p>Currency: {{ settings().currency }}</p>
+  <p>Cycle start day: {{ settings().cycleStartDay }}</p>
+</div>
+}
