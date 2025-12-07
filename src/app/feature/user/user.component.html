@@ -1,0 +1,12 @@
+<p>user info works!</p>
+
+@if (loading()) {
+<div>Loading...</div>
+} @if (error()) {
+<div>{{ error() }}</div>
+} @if (user() && !loading()) {
+<div>
+  <p>Name: {{ user().name }}</p>
+  <p>Email: {{ user().email }}</p>
+</div>
+}

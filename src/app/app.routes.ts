@@ -3,6 +3,8 @@ import { AppContainerComponent } from './core/layout/app-container.component';
 import { DashboardComponent } from './feature/dashboard/dashboard.component';
 import { CategoriesComponent } from './feature/categories/categories.component';
 import { ExpensesComponent } from './feature/expenses/expenses.component';
+import { SettingsComponent } from './feature/settings/settings.component';
+import { UserComponent } from './feature/user/user.component';
 
 export const routes: Routes = [
   // { path: 'login', component: LoginComponent },
@@ -14,8 +16,9 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'expenses', component: ExpensesComponent },
       { path: 'categories', component: CategoriesComponent },
-      // { path: 'settings', component: SettingsComponent },
-      // { path: 'add-expense', component: AddExpenseComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: 'user', component: UserComponent },
+      // { path: 'add-expense', component: UserComponent },
 
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],

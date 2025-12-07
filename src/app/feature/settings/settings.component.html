@@ -6,6 +6,9 @@
 <div>{{ error() }}</div>
 } @if (settings() && !loading()) {
 <div>
+  <a class="text-blue-500" href="/user">User Panel</a>
+</div>
+<div>
   <p>Currency: {{ settings().currency }}</p>
   <p>Cycle start day: {{ settings().cycleStartDay }}</p>
 </div>
