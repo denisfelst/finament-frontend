@@ -95,19 +95,22 @@ export class ExpensesComponent {
       tag: data.tag,
     };
 
-    this.expenseService.putApiExpenses(1, payload).subscribe({
-      // TODO: until auth
-      next: () => {
-        this.saving.set(false);
-        this.saved.set(true);
-        setTimeout(() => {
-          this.saved.set(false);
-        }, 3000);
-      },
-      error: () => {
-        this.error.set('Failed saving expense');
-        this.saving.set(false);
-      },
-    });
+    this.expenseService
+      .putApiExpenses(this.currentExpense()!.id, payload)
+      .subscribe({
+        // TODO: until auth
+        next: () => {
+          this.saving.set(false);
+          this.saved.set(true);
+          setTimeout(() => {
+            this.saved.set(false);
+          }, 3000);
+        },
+        error: (e) => {
+          this.error.set('Failed saving expense');
+          console.error(e);
+          this.saving.set(false);
+        },
+      });
   }
 }
