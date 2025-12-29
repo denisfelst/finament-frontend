@@ -3,9 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type UpdateExpenseDto = {
-    categoryId?: number | null;
-    amount?: number | null;
-    date?: string | null;
-    tag?: string | null;
+  categoryId?: number | null;
+  amount?: number | null;
+  date?: string | null;
+  tag?: string | null;
 };
-

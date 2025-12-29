@@ -8,8 +8,18 @@
 <ul>
   @for (exp of expenses(); track exp.id) {
   <li>
-    {{ exp.amount }} — {{ exp.categoryId }} — {{ exp.date }} — #{{ exp.tag }}
+    <span
+      >{{ exp.amount }} — {{ exp.categoryId }} — {{ exp.date }} — #{{ exp.tag }}
+      -
+    </span>
+    <button (click)="setModal(exp.id)">Edit</button>
   </li>
   }
 </ul>
+
+<app-modal
+  [name]="currentModal() ?? ''"
+  [open]="currentModal() !== null"
+  (close)="setModal(null)"
+></app-modal>
 }

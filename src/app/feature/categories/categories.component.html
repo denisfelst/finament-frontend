@@ -9,8 +9,16 @@
 <!-- content  -->
 @if (!loading()) {
 <ul>
-  @for (cat of categories(); track cat.name) {
-  <li>{{ cat.name }} — {{ cat.monthlyEstimate }} — {{ cat.color }}</li>
+  @for (cat of categories(); track cat.id) {
+  <li>
+    <span>{{ cat.name }} — {{ cat.monthlyLimit }} — {{ cat.color }} - </span>
+    <button (click)="setModal(cat.name)">Edit</button>
+  </li>
   }
 </ul>
 }
+<app-modal
+  [name]="currentModal() ?? ''"
+  [open]="currentModal() !== null"
+  (close)="setModal(null)"
+></app-modal>

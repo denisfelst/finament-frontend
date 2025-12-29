@@ -3,8 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type UpdateCategoryDto = {
-    name?: string | null;
-    monthlyLimit?: number | null;
-    color?: string | null;
+  name?: string | null;
+  monthlyLimit?: number | null;
+  color?: string | null;
 };
-

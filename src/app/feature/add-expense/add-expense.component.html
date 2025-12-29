@@ -48,29 +48,6 @@
   <button type="submit">Add</button>
 </form>
 
-<!--
-<div>
-  <label>Category *</label>
-  <select ngModel (ngModelChange)="categoryId.set($event)">
-    <option value="">Select category</option>
-    @for (c of categories(); track c.id) {
-    <option [value]="c.id">{{ c.name }}</option>
-    }
-  </select>
-</div>
-
-<div>
-  <label>Date *</label>
-  <input type="date" [(ngModel)]="date()" (ngModelChange)="date.set($event)" />
-</div>
-
-<div>
-  <label>Tag (optional)</label>
-  <input type="text" [(ngModel)]="tag()" (ngModelChange)="tag.set($event)" />
-</div>
-
-<button (click)="submit()" [disabled]="saving()">Add</button> -->
-
 @if (saved()) {
 <p>Expense added!</p>
 } }
