@@ -6,48 +6,13 @@
 <p>{{ error() }}</p>
 } @if (!loading()) {
 
-<form [formGroup]="form" (submit)="submit()">
-  <div>
-    <label for="amount">Amount *</label>
-    <br />
-    <input
-      id="amount"
-      formControlName="amount"
-      type="number"
-      class="border-2"
-    />
-  </div>
+<app-expense-form
+  [categories]="categories()"
+  (submission)="onSubmit($event)"
+></app-expense-form>
 
-  <div>
-    <label for="category">Category *</label>
-    <br />
-    <select
-      id="category"
-      formControlName="category"
-      type="number"
-      class="border-2"
-    >
-      @for (c of categories(); track c.id) {
-      <option [value]="c.id">{{ c.name }}</option>
-      }
-    </select>
-  </div>
-
-  <div>
-    <label for="date">Date *</label>
-    <br />
-    <input id="date" formControlName="date" class="border-2" type="date" />
-  </div>
-
-  <div>
-    <label for="tag">Tag #</label>
-    <br />
-    <input id="tag" formControlName="tag" class="border-2" type="text" />
-  </div>
-
-  <button type="submit">Add</button>
-</form>
-
-@if (saved()) {
+@if (saving()) {
+<p>Saving...</p>
+} @else if (saved()) {
 <p>Expense added!</p>
 } }

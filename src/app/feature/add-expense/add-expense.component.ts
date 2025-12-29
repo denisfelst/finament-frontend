@@ -1,35 +1,26 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ExpenseService, CategoryService, CreateExpenseDto } from '../../api';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ExpenseFormComponent } from '../../shared/expense-form/expense-form.component';
+import { ICategory } from '../models/category.interface';
+import { IExpenseFormData } from '../models/expense-form-data.interface';
 
 @Component({
   selector: 'app-add-expense',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ExpenseFormComponent],
   templateUrl: './add-expense.component.html',
   styleUrl: './add-expense.component.scss',
 })
 export class AddExpenseComponent {
-  private formBuilder = inject(FormBuilder);
+  private expenseService = inject(ExpenseService);
+  private categoryService = inject(CategoryService);
 
-  form = this.formBuilder.group({
-    amount: [0, Validators.required],
-    category: [0, Validators.required],
-    date: ['', Validators.required],
-    tag: [''],
-  });
+  categories = signal<ICategory[]>([]);
 
-  // UI state
-  categories = signal<any[]>([]);
   loading = signal(true);
   error = signal<string | null>(null);
   saving = signal(false);
   saved = signal(false);
-
-  constructor(
-    private expenseService: ExpenseService,
-    private categoryService: CategoryService
-  ) {}
 
   ngOnInit() {
     this.loadCategories();
@@ -49,20 +40,15 @@ export class AddExpenseComponent {
     });
   }
 
-  amount = computed(() => this.form.get('amount')?.value ?? undefined);
-  category = computed(() => this.form.get('category')?.value ?? undefined);
-  date = computed(() => this.form.get('date')?.value ?? undefined);
-  tag = computed(() => this.form.get('tag')?.value ?? undefined);
-
-  submit() {
+  onSubmit(data: IExpenseFormData) {
     this.saving.set(true);
     this.error.set(null);
 
     const payload: CreateExpenseDto = {
-      amount: this.amount(),
-      categoryId: this.category(),
-      date: this.date(),
-      tag: this.tag(),
+      amount: data.amount,
+      categoryId: data.category,
+      date: data.date,
+      tag: data.tag,
 
       userId: 1, // TODO: until auth
     };

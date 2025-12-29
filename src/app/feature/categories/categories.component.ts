@@ -1,13 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CategoryService } from '../../api';
 import { ModalComponent } from '../../shared/modal/modal.component';
-
-interface ICategory {
-  id: number;
-  name: string;
-  monthlyLimit?: number;
-  color?: string | null;
-}
+import { ICategory } from '../models/category.interface';
 
 @Component({
   selector: 'app-categories',
@@ -16,18 +10,19 @@ interface ICategory {
   styleUrl: './categories.component.scss',
 })
 export class CategoriesComponent {
+  private categoryService = inject(CategoryService);
+
   categories = signal<ICategory[]>([]);
   loading = signal(false);
   error = signal<string | null>(null);
   currentModal = signal<string | null>(null);
-
-  constructor(private categoryService: CategoryService) {}
 
   ngOnInit() {
     this.loadCategories();
   }
 
   private loadCategories() {
+    // TODO: loadCategories should exist in our service. create custom service
     this.loading.set(true);
     this.error.set(null);
 

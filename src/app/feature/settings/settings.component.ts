@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { SettingService } from '../../api';
 
 @Component({
@@ -9,11 +9,11 @@ import { SettingService } from '../../api';
   styleUrl: './settings.component.scss',
 })
 export class SettingsComponent {
+  private settingsService = inject(SettingService);
+
   settings = signal<any | null>(null);
   loading = signal(false);
   error = signal<string | null>(null);
-
-  constructor(private settingsService: SettingService) {}
 
   ngOnInit() {
     this.loadSettings();

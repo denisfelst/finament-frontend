@@ -1,15 +1,14 @@
-<p>expenses works!</p>
-
 @if (loading()) {
 <div>Loading...</div>
 } @if (error()) {
 <div>{{ error() }}</div>
 } @if (!loading()) {
 <ul>
-  @for (exp of expenses(); track exp.id) {
+  @for (exp of orderedExpenses(); track exp.id) {
   <li>
-    <span
-      >{{ exp.amount }} — {{ exp.categoryId }} — {{ exp.date }} — #{{ exp.tag }}
+    <span>
+      #{{ exp.id }} - {{ exp.amount }} — {{ exp.categoryId }} — #{{ exp.tag }}
+      <!-- {{ exp.date }} -->
       -
     </span>
     <button (click)="setModal(exp.id)">Edit</button>
@@ -21,5 +20,17 @@
   [name]="currentModal() ?? ''"
   [open]="currentModal() !== null"
   (close)="setModal(null)"
-></app-modal>
+>
+  <app-expense-form
+    [categories]="categories()"
+    [expense]="currentExpense()"
+    (submission)="onSubmit($event)"
+  ></app-expense-form>
+
+  @if (saving()) {
+  <p>Saving...</p>
+  } @else if (saved()) {
+  <p>Expense added!</p>
+  }
+</app-modal>
 }
