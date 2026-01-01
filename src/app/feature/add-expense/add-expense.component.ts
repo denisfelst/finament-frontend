@@ -32,7 +32,7 @@ export class AddExpenseComponent {
         this.categories.set(res);
       },
       error: () => {
-        this.error.set('Error loading categories');
+        this.error.set('Failed to load categories');
         this.loading.set(false);
       },
     });
@@ -60,7 +60,7 @@ export class AddExpenseComponent {
         }, 3000);
       },
       error: () => {
-        this.error.set('Failed saving expense');
+        this.error.set('Failed to save expense');
         this.saving.set(false);
       },
     });

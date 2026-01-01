@@ -50,7 +50,7 @@ export class ExpensesComponent {
         this.loading.set(false);
       },
       error: () => {
-        this.error.set('Error loading expenses');
+        this.error.set('Failed to load expenses');
         this.loading.set(false);
       },
     });
@@ -69,7 +69,7 @@ export class ExpensesComponent {
         this.loading.set(false);
       },
       error: () => {
-        this.error.set('Error loading categories');
+        this.error.set('Failed to load categories');
       },
     });
   }
@@ -110,7 +110,7 @@ export class ExpensesComponent {
           }, 3000);
         },
         error: (e) => {
-          this.error.set('Failed saving expense: ' + e);
+          this.error.set('Failed to save expense: ' + e);
           console.error(e);
         },
       });
@@ -130,7 +130,7 @@ export class ExpensesComponent {
         }, 3000);
       },
       error: (e) => {
-        this.error.set('Failed deleting expense');
+        this.error.set('Failed to delete expense');
         console.error(e);
       },
     });

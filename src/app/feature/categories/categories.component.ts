@@ -74,7 +74,7 @@ export class CategoriesComponent {
         this.loading.set(false);
       },
       error: (e) => {
-        this.error.set('Error loading categories: ' + e);
+        this.error.set('Failed to load categories: ' + e);
         this.loading.set(false);
       },
     });
@@ -99,7 +99,7 @@ export class CategoriesComponent {
           }, 3000);
         },
         error: (e) => {
-          this.error.set('Failed saving category ' + e);
+          this.error.set('Failed to save category ' + e);
           console.error(e);
         },
       });
@@ -123,7 +123,7 @@ export class CategoriesComponent {
         }, 3000);
       },
       error: (e) => {
-        this.error.set('Failed saving category');
+        this.error.set('Failed to save category');
         console.error(e);
       },
     });
@@ -169,7 +169,7 @@ export class CategoriesComponent {
           }, 3000);
         },
         error: (e) => {
-          this.error.set('Failed deleting category');
+          this.error.set('Failed to delete category');
           console.error(e);
         },
       });

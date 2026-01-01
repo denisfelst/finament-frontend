@@ -1,5 +1,11 @@
 import { Component, computed, inject, input, output } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { ICategory } from '../../feature/models/category.interface';
 import { IExpenseFormData } from '../../feature/models/expense-form-data.interface';
 import { IExpense } from '../../feature/models/expense.interface';
@@ -27,8 +33,8 @@ export class ExpenseFormComponent {
         this.expense()?.date
           ? this.toDateInputValue(this.expense()!.date)
           : this.todayISO(),
-        Validators.required,
-      ], // TODO: fix date now: returns 1234567...
+        [Validators.required, this.dateInFutureValidator.bind(this)],
+      ],
       tag: [this.expense()?.tag ?? ''],
     });
   });
@@ -44,6 +50,14 @@ export class ExpenseFormComponent {
 
   private toDateInputValue(iso: string): string {
     return iso.slice(0, 10);
+  }
+
+  private dateInFutureValidator(control: FormControl): ValidationErrors | null {
+    if (!control.value) {
+      return null;
+    }
+    const today = new Date().toISOString().slice(0, 10);
+    return control.value > today ? { dateInFuture: true } : null;
   }
 
   onSubmit() {
