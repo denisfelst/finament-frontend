@@ -115,4 +115,24 @@ export class ExpensesComponent {
         },
       });
   }
+
+  onDelete() {
+    this.error.set(null);
+
+    this.expenseService.deleteApiExpenses(this.currentExpense()!.id).subscribe({
+      next: () => {
+        this.saved.set(true);
+        this.savedMessage.set('Expense deleted successfully');
+        this.loadExpenses();
+        this.setModal(null);
+        setTimeout(() => {
+          this.saved.set(false);
+        }, 3000);
+      },
+      error: (e) => {
+        this.error.set('Failed deleting expense');
+        console.error(e);
+      },
+    });
+  }
 }

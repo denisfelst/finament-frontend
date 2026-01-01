@@ -17,7 +17,7 @@ export class AddExpenseComponent {
 
   categories = signal<ICategory[]>([]);
 
-  loading = signal(true);
+  loading = signal(false);
   error = signal<string | null>(null);
   saving = signal(false);
   saved = signal(false);
@@ -27,11 +27,9 @@ export class AddExpenseComponent {
   }
 
   private loadCategories() {
-    this.loading.set(true);
     this.categoryService.getApiCategories(1).subscribe({
       next: (res) => {
         this.categories.set(res);
-        this.loading.set(false);
       },
       error: () => {
         this.error.set('Error loading categories');

@@ -16,6 +16,7 @@ export class ExpenseFormComponent {
   categories = input.required<ICategory[]>();
   expense = input<IExpense | null>(null);
   submission = output<IExpenseFormData>();
+  delete = output();
 
   form = computed(() => {
     return this.formBuilder.group({
@@ -42,5 +43,9 @@ export class ExpenseFormComponent {
       date: this.date(),
       tag: this.tag(),
     });
+  }
+
+  onDelete() {
+    this.delete.emit();
   }
 }

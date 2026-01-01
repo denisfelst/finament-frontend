@@ -6,10 +6,11 @@
 <div>{{ error() }}</div>
 } @if (!loading()) {
 <ul>
-  @for (exp of orderedExpenses(); track exp.id) {
+  @for (exp of orderedExpenses(); let i = $index; track exp.id) {
   <li>
     <span>
-      #{{ exp.id }} - {{ exp.amount }} — {{ exp.categoryId }} — #{{ exp.tag }}
+      #{{ orderedExpenses().length - i }} - {{ exp.amount }} —
+      {{ exp.categoryId }} — {{ exp.tag ? "#" + exp.tag : "" }}
       <!-- {{ exp.date }} -->
       -
     </span>
@@ -27,6 +28,7 @@
     [categories]="categories()"
     [expense]="currentExpense()"
     (submission)="onSubmit($event)"
+    (delete)="onDelete()"
   ></app-expense-form>
 
   @if (saved()) {
