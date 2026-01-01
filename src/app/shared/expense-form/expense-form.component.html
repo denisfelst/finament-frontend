@@ -40,6 +40,8 @@
     <input id="tag" formControlName="tag" class="border-2" type="text" />
   </div>
 
+  @if(expense()?.id){
   <button (click)="onDelete()">Delete</button>
+  }
   <button type="submit">{{ expense() === null ? "Add" : "Edit" }}</button>
 </form>

@@ -56,7 +56,9 @@
         maxlength="7"
       />
     </div>
+    @if(currentCategory()?.id){
     <button (click)="onDelete()">Delete</button>
+    }
     <button type="submit">{{ currentCategory()?.id ? "Save" : "Add" }}</button>
   </form>
 
