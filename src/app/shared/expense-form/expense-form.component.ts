@@ -24,7 +24,9 @@ export class ExpenseFormComponent {
       amount: [this.expense()?.amount ?? 0, Validators.required],
       category: [this.expense()?.categoryId ?? 0, Validators.required],
       date: [
-        this.expense()?.date ?? Date.now().toString(),
+        this.expense()?.date
+          ? this.toDateInputValue(this.expense()!.date)
+          : this.todayISO(),
         Validators.required,
       ], // TODO: fix date now: returns 1234567...
       tag: [this.expense()?.tag ?? ''],
@@ -35,6 +37,14 @@ export class ExpenseFormComponent {
   category = computed(() => this.form().get('category')?.value ?? 0);
   date = computed(() => this.form().get('date')?.value ?? '');
   tag = computed(() => this.form().get('tag')?.value ?? '');
+
+  private todayISO(): string {
+    return new Date().toISOString().slice(0, 10);
+  }
+
+  private toDateInputValue(iso: string): string {
+    return iso.slice(0, 10);
+  }
 
   onSubmit() {
     this.submission.emit({
