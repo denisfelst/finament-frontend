@@ -41,7 +41,7 @@ export class AddExpenseComponent {
   }
 
   onSubmit(data: IExpenseFormData) {
-    this.saving.set(true);
+    this.loading.set(true);
     this.error.set(null);
 
     const payload: CreateExpenseDto = {
@@ -55,8 +55,8 @@ export class AddExpenseComponent {
 
     this.expenseService.postApiExpenses(payload).subscribe({
       next: () => {
-        this.saving.set(false);
         this.saved.set(true);
+        this.loading.set(false);
         setTimeout(() => {
           this.saved.set(false);
         }, 3000);

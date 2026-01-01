@@ -1,18 +1,22 @@
 <h2>Add Expense</h2>
 
 @if (loading()) {
-<p>Loading categories...</p>
-} @if (error()) {
+<div>Loading...</div>
+} @if (saved()) {
+<p>Expense created successfully</p>
+} @if (error()) { @if (error()) {
 <p>{{ error() }}</p>
-} @if (!loading()) {
+}
 
+<div>{{ error() }}</div>
+} @if (!loading()) {
 <app-expense-form
   [categories]="categories()"
   (submission)="onSubmit($event)"
 ></app-expense-form>
 
-@if (saving()) {
-<p>Saving...</p>
-} @else if (saved()) {
-<p>Expense added!</p>
+@if (saved()) {
+<p>Expense created successfully</p>
+} @if (loading()) {
+<div>Loading...</div>
 } }

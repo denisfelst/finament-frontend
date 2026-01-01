@@ -23,8 +23,8 @@ export class ExpensesComponent {
 
   loading = signal(false);
   error = signal<string | null>(null);
-  saving = signal(false);
   saved = signal(false);
+  savedMessage = signal('');
 
   orderedExpenses = computed(() => {
     // descending: newest first, based on date
@@ -61,14 +61,15 @@ export class ExpensesComponent {
   }
 
   private loadCategories() {
+    this.loading.set(true);
     // TODO: loadCategories should exist in our service. create custom service
     this.categoryService.getApiCategories(1).subscribe({
       next: (res) => {
         this.categories.set(res);
+        this.loading.set(false);
       },
       error: () => {
         this.error.set('Error loading categories');
-        this.loading.set(false);
       },
     });
   }
@@ -85,7 +86,7 @@ export class ExpensesComponent {
 
   onSubmit(data: IExpenseFormData) {
     console.log(data);
-    this.saving.set(true);
+    this.loading.set(true);
     this.error.set(null);
 
     const payload: UpdateExpenseDto = {
@@ -100,16 +101,17 @@ export class ExpensesComponent {
       .subscribe({
         // TODO: until auth
         next: () => {
-          this.saving.set(false);
           this.saved.set(true);
+          this.savedMessage.set('Expense updated successfully');
+          this.loading.set(false);
+          this.loadExpenses();
           setTimeout(() => {
             this.saved.set(false);
           }, 3000);
         },
         error: (e) => {
-          this.error.set('Failed saving expense');
+          this.error.set('Failed saving expense: ' + e);
           console.error(e);
-          this.saving.set(false);
         },
       });
   }

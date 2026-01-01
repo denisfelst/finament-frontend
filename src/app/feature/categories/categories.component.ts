@@ -7,7 +7,6 @@ import {
 import { ModalComponent } from '../../shared/modal/modal.component';
 import { ICategory } from '../models/category.interface';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-categories',

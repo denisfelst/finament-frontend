@@ -37,5 +37,5 @@
     <input id="tag" formControlName="tag" class="border-2" type="text" />
   </div>
 
-  <button type="submit">Add</button>
+  <button type="submit">{{ expense() === null ? "Add" : "Edit" }}</button>
 </form>

@@ -1,5 +1,7 @@
 @if (loading()) {
 <div>Loading...</div>
+} @if (saved()) {
+<p>{{ savedMessage() }}</p>
 } @if (error()) {
 <div>{{ error() }}</div>
 } @if (!loading()) {
@@ -27,10 +29,10 @@
     (submission)="onSubmit($event)"
   ></app-expense-form>
 
-  @if (saving()) {
-  <p>Saving...</p>
-  } @else if (saved()) {
-  <p>Expense added!</p>
+  @if (saved()) {
+  <p>{{ savedMessage() }}</p>
+  } @if (loading()) {
+  <div>Loading...</div>
   }
 </app-modal>
 }
