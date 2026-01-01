@@ -1,6 +1,6 @@
 export interface ICategory {
   id: number;
   name: string;
-  monthlyLimit?: number;
-  color?: string | null;
+  monthlyLimit: number;
+  color: string | null;
 }

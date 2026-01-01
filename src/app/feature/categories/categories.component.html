@@ -1,11 +1,16 @@
 @if (loading()) {
 <div>Loading...</div>
+} @if (saved()) {
+<p>{{ savedMessage() }}</p>
 } @if (error()) {
 <div>{{ error() }}</div>
 }
 
 <!-- content  -->
 @if (!loading()) {
+<div>
+  <button (click)="setModal(0)" popovertarget="modal">Add</button>
+</div>
 <ul>
   @for (cat of orderedCategories(); track cat.id) {
   <li>
@@ -17,7 +22,7 @@
 }
 
 <app-modal
-  [name]="currentModal() ?? ''"
+  [name]="currentCategory()?.name ?? 'New Category'"
   [open]="currentModal() !== null"
   (close)="setModal(null)"
 >
@@ -51,13 +56,13 @@
         maxlength="7"
       />
     </div>
-
-    <button type="submit">{{ currentCategory()?.id ? "Edit" : "Add" }}</button>
+    <button (click)="onDelete()">Delete</button>
+    <button type="submit">{{ currentCategory()?.id ? "Save" : "Add" }}</button>
   </form>
 
-  @if (saving()) {
-  <p>Saving...</p>
-  } @else if (saved()) {
-  <p>Category added!</p>
+  @if (saved()) {
+  <p>{{ savedMessage() }}</p>
+  } @if (loading()) {
+  <div>Loading...</div>
   }
 </app-modal>
