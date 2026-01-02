@@ -161,7 +161,7 @@ export class CategoriesComponent {
     return value.trim().length >= 3 ? null : { minLengthName: { min: 3 } };
   }
 
-  capitalize() {
+  capitalizeName() {
     const control = this.form().controls.name;
     let value: string = control.value ?? '';
 
@@ -177,6 +177,27 @@ export class CategoriesComponent {
       .join(' ');
 
     control.setValue(capitalized);
+  }
+
+  public toHexFormat(): void {
+    const control = this.form().controls.color;
+    let value: string = control.value ?? '';
+
+    if (!value.trim()) return;
+
+    value = value.trim();
+
+    if (!value.startsWith('#')) {
+      value = `#${value}`;
+    }
+
+    // Update value first so validation re-runs
+    control.setValue(value, { emitEvent: false });
+
+    // Only capitalize if the value is valid
+    if (!control.errors?.['invalidHexColor']) {
+      control.setValue(value.toUpperCase());
+    }
   }
 
   setModal(id: number | null) {

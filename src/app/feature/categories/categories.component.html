@@ -37,7 +37,7 @@
         class="border-2"
         minlength="3"
         placeholder="My Category"
-        (blur)="capitalize()"
+        (blur)="capitalizeName()"
       />
       @if (form().controls.name) { @if
       (form().controls.name.errors?.['minLengthName']) {
@@ -72,6 +72,7 @@
         placeholder="#FFFFFF"
         minLength="6"
         maxlength="7"
+        (blur)="toHexFormat()"
       />
       @if (form().controls.color) { @if
       (form().controls.color.errors?.['invalidHexColor']) {
