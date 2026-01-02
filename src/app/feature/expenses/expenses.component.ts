@@ -111,6 +111,7 @@ export class ExpensesComponent {
         },
         error: (e) => {
           this.error.set('Failed to save expense: ' + e);
+          this.loading.set(false);
           console.error(e);
         },
       });
@@ -131,6 +132,7 @@ export class ExpensesComponent {
       },
       error: (e) => {
         this.error.set('Failed to delete expense');
+        this.loading.set(false);
         console.error(e);
       },
     });

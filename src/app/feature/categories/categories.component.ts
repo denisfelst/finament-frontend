@@ -6,7 +6,13 @@ import {
 } from '../../api';
 import { ModalComponent } from '../../shared/modal/modal.component';
 import { ICategory } from '../models/category.interface';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-categories',
@@ -29,16 +35,22 @@ export class CategoriesComponent {
 
   form = computed(() => {
     return this.formBuilder.group({
-      name: [this.currentCategory()?.name ?? ''],
-      monthlyLimit: [
-        this.currentCategory()?.monthlyLimit ?? 100,
-        Validators.required,
+      name: [
+        this.currentCategory()?.name ?? null,
+        [Validators.required, this.nameValidator.bind(this)],
       ],
-      color: [this.currentCategory()?.color ?? '#FFFFFF', Validators.required],
+      monthlyLimit: [
+        this.currentCategory()?.monthlyLimit ?? null,
+        [Validators.required, Validators.min(1)],
+      ],
+      color: [
+        this.currentCategory()?.color ?? null,
+        [Validators.required, this.hexColorValidator.bind(this)],
+      ],
     });
   });
 
-  name = computed(() => this.form().get('name')?.value ?? '');
+  name = computed(() => this.form().get('name')?.value ?? 'name');
   monthlyLimit = computed(() => this.form().get('monthlyLimit')?.value ?? 100);
   color = computed(() => this.form().get('color')?.value ?? '#FFFFFF');
 
@@ -127,6 +139,44 @@ export class CategoriesComponent {
         console.error(e);
       },
     });
+  }
+
+  private hexColorValidator(control: FormControl): ValidationErrors | null {
+    const value: string = control.value;
+    if (!value) {
+      return null;
+    }
+    const normalized = value.startsWith('#') ? value.slice(1) : value;
+    const hexRegex: RegExp = /^[0-9A-Fa-f]{6}$/;
+    return hexRegex.test(normalized) ? null : { invalidHexColor: true };
+  }
+
+  private nameValidator(control: FormControl): ValidationErrors | null {
+    const value: string = control.value ?? '';
+
+    if (!value.trim()) {
+      return null;
+    }
+
+    return value.trim().length >= 3 ? null : { minLengthName: { min: 3 } };
+  }
+
+  capitalize() {
+    const control = this.form().controls.name;
+    let value: string = control.value ?? '';
+
+    if (!value.trim()) {
+      control.setValue('');
+      return;
+    }
+
+    const capitalized = value
+      .trim()
+      .split(/\s+/)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+
+    control.setValue(capitalized);
   }
 
   setModal(id: number | null) {

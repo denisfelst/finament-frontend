@@ -4,7 +4,7 @@
 /* eslint-disable */
 export type CreateCategoryDto = {
   userId: number;
-  name: string | null;
+  name: string;
   monthlyLimit: number;
-  color: string | null;
+  color: string;
 };

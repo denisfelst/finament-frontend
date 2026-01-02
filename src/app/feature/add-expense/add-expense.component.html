@@ -4,19 +4,11 @@
 <div>Loading...</div>
 } @if (saved()) {
 <p>Expense created successfully</p>
-} @if (error()) { @if (error()) {
+} @if (error()) {
 <p>{{ error() }}</p>
-}
-
-<div>{{ error() }}</div>
 } @if (!loading()) {
 <app-expense-form
   [categories]="categories()"
   (submission)="onSubmit($event)"
 ></app-expense-form>
-
-@if (saved()) {
-<p>Expense created successfully</p>
-} @if (loading()) {
-<div>Loading...</div>
-} }
+}

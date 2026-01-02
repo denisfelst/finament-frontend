@@ -7,8 +7,17 @@
       formControlName="amount"
       type="number"
       class="border-2"
+      min="1"
+      step="1"
+      (blur)="roundAmount()"
     />
   </div>
+
+  @if (form().controls.amount.errors?.['notInteger']) {
+  <div class="text-[#f00]">Amount must be a whole number</div>
+  } @if (form().controls.amount.errors?.['min']) {
+  <div class="text-[#f00]">Amount must be at least 1</div>
+  }
 
   <div>
     <label for="category">Category *</label>
@@ -37,11 +46,22 @@
   <div>
     <label for="tag">Tag #</label>
     <br />
-    <input id="tag" formControlName="tag" class="border-2" type="text" />
+    #
+    <input
+      id="tag"
+      formControlName="tag"
+      class="border-2"
+      type="text"
+      placeholder="yourTag"
+      min="1"
+      (blur)="toCamelCaseTag()"
+    />
   </div>
 
   @if(expense()?.id){
   <button (click)="onDelete()">Delete</button>
   }
-  <button type="submit">{{ expense() === null ? "Add" : "Edit" }}</button>
+  <button type="submit" [disabled]="!form().valid">
+    {{ expense() === null ? "Add" : "Edit" }}
+  </button>
 </form>

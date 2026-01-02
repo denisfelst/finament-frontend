@@ -61,6 +61,7 @@ export class AddExpenseComponent {
       },
       error: () => {
         this.error.set('Failed to save expense');
+        this.loading.set(false);
         this.saving.set(false);
       },
     });
