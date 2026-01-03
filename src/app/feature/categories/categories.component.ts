@@ -10,10 +10,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { CategoryStore } from '../../store/category.store';
+import { ErrorComponent } from '../../shared/toast/error.component';
 
 @Component({
   selector: 'app-categories',
-  imports: [ModalComponent, ReactiveFormsModule],
+  imports: [ModalComponent, ReactiveFormsModule, ErrorComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
 })
@@ -85,6 +86,7 @@ export class CategoriesComponent {
 
     this.categoryStore.update(this.currentCategory()!.id, payload);
   }
+
   private deleteCategory() {
     this.categoryStore.delete(this.currentCategory()!.id);
   }

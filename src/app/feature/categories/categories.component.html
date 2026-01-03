@@ -1,9 +1,9 @@
 <h2>Categories</h2>
 
 @if (loading()) {
-<div>Loading...</div>
+<div class="bg-blue-100">Loading...</div>
 } @if (error()) {
-<div>{{ error() }}</div>
+<app-error [error]="error()"></app-error>
 }
 
 <!-- content  -->
@@ -31,9 +31,10 @@
     {{ message() }}
   </div>
   } @if(error()){
-  <div class="bg-red-400">
-    {{ error() }}
-  </div>
+  <app-error [error]="error()"></app-error>
+
+  } @if (loading()) {
+  <div class="bg-blue-100">Loading...</div>
   }
 
   <form [formGroup]="form()" (ngSubmit)="onSubmit()">
@@ -97,8 +98,4 @@
       {{ currentCategory()?.id ? "Save" : "Add" }}
     </button>
   </form>
-
-  @if (loading()) {
-  <div>Loading...</div>
-  }
 </app-modal>
