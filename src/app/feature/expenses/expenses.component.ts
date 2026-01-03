@@ -54,18 +54,10 @@ export class ExpensesComponent {
     return this.expenses().find((expense) => expense.id === id) ?? null;
   }
 
-  private loadCategories() {
-    this.loading.set(true);
-    // TODO: loadCategories should exist in our service. create custom service
-    this.categoryService.getApiCategories(1).subscribe({
-      next: (res) => {
-        this.categories.set(res);
-        this.loading.set(false);
-      },
-      error: () => {
-        this.error.set('Failed to load categories');
-      },
-    });
+  ngOnInit() {
+    // TODO: (???) cache this so it only loads once; also has to load WHEN NEEDED: when user edits an expense.
+    this.categoryStore.load();
+    this.expenseStore.load();
   }
 
   setModal(id: number | null) {
