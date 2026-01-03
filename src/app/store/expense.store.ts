@@ -5,14 +5,15 @@ import { IExpense } from '../feature/models/expense.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ExpenseStore {
+  private api = inject(ExpenseService);
+
+  private readonly userId = 1; // TODO: remove when auth exists
+
   // state
   expenses = signal<IExpense[]>([]);
   loading = signal(false);
   error = signal<string | null>(null);
   message = signal<string | null>(null);
-
-  private api = inject(ExpenseService);
-  private readonly userId = 1; // TODO: remove when auth exists
 
   constructor() {
     effect(() => {

@@ -5,15 +5,15 @@ import { ICategory } from '../feature/models/category.interface';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryStore {
+  private api = inject(CategoryService);
+
+  private readonly userId = 1; // TODO: remove when auth exists
+
   // state
   categories = signal<ICategory[]>([]);
   loading = signal(false);
   error = signal<string | null>(null);
   message = signal<string | null>(null);
-
-  private api = inject(CategoryService);
-
-  private readonly userId = 1; // TODO: remove when auth exists
 
   constructor() {
     effect(() => {

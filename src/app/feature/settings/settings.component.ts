@@ -1,38 +1,22 @@
 import { Component, inject, signal } from '@angular/core';
-import { SettingService } from '../../api';
+import { SettingStore } from '../../store/setting.store';
+import { ErrorComponent } from '../../shared/toast/error.component';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [],
+  imports: [ErrorComponent],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
 })
 export class SettingsComponent {
-  private settingsService = inject(SettingService);
+  private settingStore = inject(SettingStore);
 
-  settings = signal<any | null>(null);
-  loading = signal(false);
-  error = signal<string | null>(null);
+  settings = this.settingStore.settings;
+  loading = this.settingStore.loading;
+  error = this.settingStore.error;
 
   ngOnInit() {
-    this.loadSettings();
-  }
-
-  private loadSettings() {
-    this.loading.set(true);
-    this.error.set(null);
-
-    this.settingsService.getApiSettings(1).subscribe({
-      // TODO: hardcoded until auth
-      next: (res) => {
-        this.settings.set(res);
-        this.loading.set(false);
-      },
-      error: () => {
-        this.error.set('Error loading settings');
-        this.loading.set(false);
-      },
-    });
+    this.settingStore.load();
   }
 }
