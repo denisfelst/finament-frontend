@@ -1,10 +1,12 @@
+<h2>Expenses</h2>
+
 @if (loading()) {
 <div>Loading...</div>
 } @if (saved()) {
 <p>{{ savedMessage() }}</p>
 } @if (error()) {
 <div>{{ error() }}</div>
-} @if (!loading()) {
+} @if (!loading() && !error()) {
 <ul>
   @for (exp of orderedExpenses(); let i = $index; track exp.id) {
   <li>

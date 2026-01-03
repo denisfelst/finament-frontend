@@ -86,7 +86,7 @@ export class CategoriesComponent {
         this.loading.set(false);
       },
       error: (e) => {
-        this.error.set('Failed to load categories: ' + e);
+        this.error.set('Failed to load categories: ' + e.message);
         this.loading.set(false);
       },
     });

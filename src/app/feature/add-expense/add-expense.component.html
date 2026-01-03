@@ -6,7 +6,7 @@
 <p>Expense created successfully</p>
 } @if (error()) {
 <p>{{ error() }}</p>
-} @if (!loading()) {
+} @if (!loading() && !error()) {
 <app-expense-form
   [categories]="categories()"
   (submission)="onSubmit($event)"

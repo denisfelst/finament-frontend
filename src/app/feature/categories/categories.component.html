@@ -1,3 +1,5 @@
+<h2>Categories</h2>
+
 @if (loading()) {
 <div>Loading...</div>
 } @if (saved()) {
@@ -7,7 +9,7 @@
 }
 
 <!-- content  -->
-@if (!loading()) {
+@if (!loading() && !error()){
 <div>
   <button (click)="setModal(0)" popovertarget="modal">Add</button>
 </div>
