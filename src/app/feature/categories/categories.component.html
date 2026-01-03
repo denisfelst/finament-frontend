@@ -2,8 +2,6 @@
 
 @if (loading()) {
 <div>Loading...</div>
-} @if (saved()) {
-<p>{{ savedMessage() }}</p>
 } @if (error()) {
 <div>{{ error() }}</div>
 }
@@ -28,6 +26,16 @@
   [open]="currentModal() !== null"
   (close)="setModal(null)"
 >
+  @if(message()){
+  <div class="bg-green-400">
+    {{ message() }}
+  </div>
+  } @if(error()){
+  <div class="bg-red-400">
+    {{ error() }}
+  </div>
+  }
+
   <form [formGroup]="form()" (ngSubmit)="onSubmit()">
     <div>
       <label for="name">Name *</label>
@@ -90,9 +98,7 @@
     </button>
   </form>
 
-  @if (saved()) {
-  <p>{{ savedMessage() }}</p>
-  } @if (loading()) {
+  @if (loading()) {
   <div>Loading...</div>
   }
 </app-modal>

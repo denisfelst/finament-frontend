@@ -1,9 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import {
-  CategoryService,
-  CreateCategoryDto,
-  UpdateCategoryDto,
-} from '../../api';
+import { CreateCategoryDto, UpdateCategoryDto } from '../../api';
 import { ModalComponent } from '../../shared/modal/modal.component';
 import { ICategory } from '../models/category.interface';
 import {
@@ -13,6 +9,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { CategoryStore } from '../../store/category.store';
 
 @Component({
   selector: 'app-categories',
@@ -21,17 +18,16 @@ import {
   styleUrl: './categories.component.scss',
 })
 export class CategoriesComponent {
-  private categoryService = inject(CategoryService);
+  private categoryStore = inject(CategoryStore);
   private formBuilder = inject(FormBuilder);
 
-  categories = signal<ICategory[]>([]);
   currentModal = signal<string | null>(null);
   currentCategory = signal<ICategory | null>(null);
 
-  loading = signal(false);
-  error = signal<string | null>(null);
-  saved = signal(false);
-  savedMessage = signal('');
+  categories = this.categoryStore.categories;
+  loading = this.categoryStore.loading;
+  error = this.categoryStore.error;
+  message = this.categoryStore.message;
 
   form = computed(() => {
     return this.formBuilder.group({
@@ -61,10 +57,6 @@ export class CategoriesComponent {
     );
   });
 
-  ngOnInit() {
-    this.loadCategories();
-  }
-
   private findCategory(id: number) {
     // id = 0 for new categories
     if (id === 0) {
@@ -73,23 +65,15 @@ export class CategoriesComponent {
     return this.categories().find((cat) => cat.id === id) ?? null;
   }
 
-  private loadCategories() {
-    // TODO: loadCategories should exist in our service. create custom service
-    this.loading.set(true);
-    this.error.set(null);
+  private createCategory() {
+    const payload: CreateCategoryDto = {
+      userId: 1, // value ev. replaced in categoryStore
+      name: this.name(),
+      monthlyLimit: this.monthlyLimit(),
+      color: this.color(),
+    };
 
-    // TODO: hardcoded until auth
-    this.categoryService.getApiCategories(1).subscribe({
-      next: (res: ICategory[]) => {
-        console.log(res);
-        this.categories.set(res);
-        this.loading.set(false);
-      },
-      error: (e) => {
-        this.error.set('Failed to load categories: ' + e.message);
-        this.loading.set(false);
-      },
-    });
+    this.categoryStore.create(payload);
   }
 
   private updateCategory() {
@@ -99,46 +83,10 @@ export class CategoriesComponent {
       color: this.color(),
     };
 
-    this.categoryService
-      .putApiCategories(this.currentCategory()!.id, payload)
-      .subscribe({
-        next: () => {
-          this.saved.set(true);
-          this.savedMessage.set('Category updated successfully');
-          this.loadCategories();
-          setTimeout(() => {
-            this.saved.set(false);
-          }, 3000);
-        },
-        error: (e) => {
-          this.error.set('Failed to save category ' + e);
-          console.error(e);
-        },
-      });
+    this.categoryStore.update(this.currentCategory()!.id, payload);
   }
-
-  private createCategory() {
-    const payload: CreateCategoryDto = {
-      userId: 1, // TODO: hardcoded until auth
-      name: this.name(),
-      monthlyLimit: this.monthlyLimit(),
-      color: this.color(),
-    };
-
-    this.categoryService.postApiCategories(payload).subscribe({
-      next: () => {
-        this.saved.set(true);
-        this.savedMessage.set('Category created successfully');
-        this.loadCategories();
-        setTimeout(() => {
-          this.saved.set(false);
-        }, 3000);
-      },
-      error: (e) => {
-        this.error.set('Failed to save category');
-        console.error(e);
-      },
-    });
+  private deleteCategory() {
+    this.categoryStore.delete(this.currentCategory()!.id);
   }
 
   private hexColorValidator(control: FormControl): ValidationErrors | null {
@@ -161,6 +109,10 @@ export class CategoriesComponent {
     return value.trim().length >= 3 ? null : { minLengthName: { min: 3 } };
   }
 
+  ngOnInit() {
+    this.categoryStore.load();
+  }
+
   capitalizeName() {
     const control = this.form().controls.name;
     let value: string = control.value ?? '';
@@ -179,7 +131,7 @@ export class CategoriesComponent {
     control.setValue(capitalized);
   }
 
-  public toHexFormat(): void {
+  toHexFormat(): void {
     const control = this.form().controls.color;
     let value: string = control.value ?? '';
 
@@ -211,9 +163,6 @@ export class CategoriesComponent {
   }
 
   onSubmit() {
-    this.error.set(null);
-    this.loading.set(true);
-
     const isNewCategory = !!!this.currentCategory()?.id;
 
     if (isNewCategory) {
@@ -224,25 +173,6 @@ export class CategoriesComponent {
   }
 
   onDelete() {
-    this.error.set(null);
-
-    this.categoryService
-      .deleteApiCategories(this.currentCategory()!.id)
-      .subscribe({
-        next: () => {
-          this.saved.set(true);
-          this.savedMessage.set('Category deleted successfully');
-
-          this.loadCategories();
-          this.setModal(null);
-          setTimeout(() => {
-            this.saved.set(false);
-          }, 3000);
-        },
-        error: (e) => {
-          this.error.set('Failed to delete category');
-          console.error(e);
-        },
-      });
+    this.deleteCategory();
   }
 }
