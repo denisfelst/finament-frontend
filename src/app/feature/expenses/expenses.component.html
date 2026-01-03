@@ -1,12 +1,22 @@
 <h2>Expenses</h2>
 
 @if (loading()) {
-<div>Loading...</div>
-} @if (saved()) {
-<p>{{ savedMessage() }}</p>
+<div class="bg-blue-100">Loading...</div>
 } @if (error()) {
-<div>{{ error() }}</div>
-} @if (!loading() && !error()) {
+<app-error [error]="error()"></app-error>
+}
+
+<!-- content  -->
+@if (!loading() && !error()) { @if(message()){
+<div class="bg-green-400">
+  {{ message() }}
+</div>
+} @if(error()){
+<app-error [error]="error()"></app-error>
+} @if (loading()) {
+<div class="bg-red-400">Loading...</div>
+}
+
 <ul>
   @for (exp of orderedExpenses(); let i = $index; track exp.id) {
   <li>
@@ -32,11 +42,5 @@
     (submission)="onSubmit($event)"
     (delete)="onDelete()"
   ></app-expense-form>
-
-  @if (saved()) {
-  <p>{{ savedMessage() }}</p>
-  } @if (loading()) {
-  <div>Loading...</div>
-  }
 </app-modal>
 }

@@ -5,26 +5,28 @@ import { IExpense } from '../models/expense.interface';
 import { ExpenseFormComponent } from '../../shared/expense-form/expense-form.component';
 import { ICategory } from '../models/category.interface';
 import { IExpenseFormData } from '../models/expense-form-data.interface';
+import { ExpenseStore } from '../../store/expense.store';
+import { CategoryStore } from '../../store/category.store';
+import { ErrorComponent } from '../../shared/toast/error.component';
 
 @Component({
   selector: 'app-expenses',
-  imports: [ModalComponent, ExpenseFormComponent],
+  imports: [ModalComponent, ExpenseFormComponent, ErrorComponent],
   templateUrl: './expenses.component.html',
   styleUrl: './expenses.component.scss',
 })
 export class ExpensesComponent {
-  private expenseService = inject(ExpenseService);
-  private categoryService = inject(CategoryService);
+  private expenseStore = inject(ExpenseStore);
+  private categoryStore = inject(CategoryStore);
 
-  expenses = signal<IExpense[]>([]);
-  categories = signal<ICategory[]>([]);
-  currentModal = signal<string | null>(null);
   currentExpense = signal<IExpense | null>(null);
+  currentModal = signal<string | null>(null);
 
-  loading = signal(false);
-  error = signal<string | null>(null);
-  saved = signal(false);
-  savedMessage = signal('');
+  expenses = this.expenseStore.expenses;
+  categories = this.categoryStore.categories;
+  loading = this.expenseStore.loading;
+  error = this.expenseStore.error;
+  message = this.expenseStore.message;
 
   orderedExpenses = computed(() => {
     // descending: newest first, based on date
@@ -33,27 +35,19 @@ export class ExpensesComponent {
     );
   });
 
-  ngOnInit() {
-    this.loadExpenses();
-    this.loadCategories(); // TODO: cache this so it only loads once; also has to load WHEN NEEDED: when user edits an expense.
+  private updateExpense(data: IExpenseFormData) {
+    const payload: UpdateExpenseDto = {
+      amount: data.amount,
+      categoryId: data.category,
+      date: data.date,
+      tag: data.tag,
+    };
+
+    this.expenseStore.update(this.currentExpense()!.id, payload);
   }
 
-  private loadExpenses() {
-    this.loading.set(true);
-    this.error.set(null);
-
-    // TODO: userId hardcoded until auth exists
-    this.expenseService.getApiExpenses(1).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.expenses.set(res);
-        this.loading.set(false);
-      },
-      error: () => {
-        this.error.set('Failed to load expenses');
-        this.loading.set(false);
-      },
-    });
+  private deleteExpense() {
+    this.expenseStore.delete(this.currentExpense()!.id);
   }
 
   private findExpense(id: number) {
@@ -85,56 +79,10 @@ export class ExpensesComponent {
   }
 
   onSubmit(data: IExpenseFormData) {
-    console.log(data);
-    this.loading.set(true);
-    this.error.set(null);
-
-    const payload: UpdateExpenseDto = {
-      amount: data.amount,
-      categoryId: data.category,
-      date: data.date,
-      tag: data.tag,
-    };
-
-    this.expenseService
-      .putApiExpenses(this.currentExpense()!.id, payload)
-      .subscribe({
-        // TODO: until auth
-        next: () => {
-          this.saved.set(true);
-          this.savedMessage.set('Expense updated successfully');
-          this.loading.set(false);
-          this.loadExpenses();
-          setTimeout(() => {
-            this.saved.set(false);
-          }, 3000);
-        },
-        error: (e) => {
-          this.error.set('Failed to save expense: ' + e);
-          this.loading.set(false);
-          console.error(e);
-        },
-      });
+    this.updateExpense(data);
   }
 
   onDelete() {
-    this.error.set(null);
-
-    this.expenseService.deleteApiExpenses(this.currentExpense()!.id).subscribe({
-      next: () => {
-        this.saved.set(true);
-        this.savedMessage.set('Expense deleted successfully');
-        this.loadExpenses();
-        this.setModal(null);
-        setTimeout(() => {
-          this.saved.set(false);
-        }, 3000);
-      },
-      error: (e) => {
-        this.error.set('Failed to delete expense');
-        this.loading.set(false);
-        console.error(e);
-      },
-    });
+    this.deleteExpense();
   }
 }
