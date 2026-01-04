@@ -1,12 +1,12 @@
 <h2>User Panel</h2>
 
 @if (loading()) {
-<div>Loading...</div>
+<app-loading></app-loading>
 } @if (error()) {
-<div>{{ error() }}</div>
-} @if (user() && !loading()) {
+<app-error [error]="error()"></app-error>
+} @if (currentUser() && !loading()) {
 <div>
-  <p>Name: {{ user().name }}</p>
-  <p>Email: {{ user().email }}</p>
+  <p>Name: {{ currentUser()!.name }}</p>
+  <p>Email: {{ currentUser()!.email }}</p>
 </div>
 }
