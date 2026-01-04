@@ -15,19 +15,13 @@ import { request as __request } from '../core/request';
 export class ExpenseService {
     constructor(public readonly http: HttpClient) {}
     /**
-     * @param userId
      * @returns any OK
      * @throws ApiError
      */
-    public getApiExpenses(
-        userId?: number,
-    ): Observable<any> {
+    public getApiExpenses(): Observable<any> {
         return __request(OpenAPI, this.http, {
             method: 'GET',
             url: '/api/expenses',
-            query: {
-                'userId': userId,
-            },
         });
     }
     /**

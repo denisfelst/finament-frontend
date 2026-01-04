@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type UpsertSettingDto = {
-  userId?: number;
-  currency?: string | null;
-  cycleStartDay?: number;
+    currency: string | null;
+    cycleStartDay?: number;
 };
+

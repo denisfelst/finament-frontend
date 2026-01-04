@@ -3,9 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 export type CreateExpenseDto = {
-  userId?: number;
-  categoryId?: number;
-  amount?: number;
-  date?: string;
-  tag?: string | null;
+    categoryId: number;
+    amount: number;
+    date: string;
+    tag?: string | null;
 };
+

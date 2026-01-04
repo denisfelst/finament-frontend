@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type CreateUserDto = {
-  name?: string | null;
-  email?: string | null;
+    name: string | null;
+    email: string | null;
 };
+

@@ -5,35 +5,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import type { Observable } from 'rxjs';
-import type { UpsertSettingDto } from '../models/UpsertSettingDto';
+import type { LoginRequestDto } from '../models/LoginRequestDto';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 @Injectable({
     providedIn: 'root',
 })
-export class SettingService {
+export class AuthService {
     constructor(public readonly http: HttpClient) {}
-    /**
-     * @returns any OK
-     * @throws ApiError
-     */
-    public getApiSettings(): Observable<any> {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/settings',
-        });
-    }
     /**
      * @param requestBody
      * @returns any OK
      * @throws ApiError
      */
-    public putApiSettings(
-        requestBody?: UpsertSettingDto,
+    public postApiAuthLogin(
+        requestBody?: LoginRequestDto,
     ): Observable<any> {
         return __request(OpenAPI, this.http, {
-            method: 'PUT',
-            url: '/api/settings',
+            method: 'POST',
+            url: '/api/auth/login',
             body: requestBody,
             mediaType: 'application/json',
         });

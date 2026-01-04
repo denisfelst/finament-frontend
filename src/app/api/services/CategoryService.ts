@@ -15,19 +15,13 @@ import { request as __request } from '../core/request';
 export class CategoryService {
     constructor(public readonly http: HttpClient) {}
     /**
-     * @param userId
      * @returns any OK
      * @throws ApiError
      */
-    public getApiCategories(
-        userId?: number,
-    ): Observable<any> {
+    public getApiCategories(): Observable<any> {
         return __request(OpenAPI, this.http, {
             method: 'GET',
             url: '/api/categories',
-            query: {
-                'userId': userId,
-            },
         });
     }
     /**

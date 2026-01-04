@@ -15,16 +15,6 @@ import { request as __request } from '../core/request';
 export class UserService {
     constructor(public readonly http: HttpClient) {}
     /**
-     * @returns any OK
-     * @throws ApiError
-     */
-    public getApiUsers(): Observable<any> {
-        return __request(OpenAPI, this.http, {
-            method: 'GET',
-            url: '/api/users',
-        });
-    }
-    /**
      * @param requestBody
      * @returns any OK
      * @throws ApiError
@@ -37,6 +27,16 @@ export class UserService {
             url: '/api/users',
             body: requestBody,
             mediaType: 'application/json',
+        });
+    }
+    /**
+     * @returns any OK
+     * @throws ApiError
+     */
+    public getApiUsers(): Observable<any> {
+        return __request(OpenAPI, this.http, {
+            method: 'GET',
+            url: '/api/users',
         });
     }
     /**
@@ -89,6 +89,31 @@ export class UserService {
             path: {
                 'id': id,
             },
+        });
+    }
+    /**
+     * @returns any OK
+     * @throws ApiError
+     */
+    public getApiUsersMe(): Observable<any> {
+        return __request(OpenAPI, this.http, {
+            method: 'GET',
+            url: '/api/users/me',
+        });
+    }
+    /**
+     * @param requestBody
+     * @returns any OK
+     * @throws ApiError
+     */
+    public putApiUsersMe(
+        requestBody?: UpdateUserDto,
+    ): Observable<any> {
+        return __request(OpenAPI, this.http, {
+            method: 'PUT',
+            url: '/api/users/me',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 }

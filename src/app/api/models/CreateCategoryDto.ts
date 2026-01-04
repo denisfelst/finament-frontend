@@ -3,8 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type CreateCategoryDto = {
-  userId: number;
-  name: string;
-  monthlyLimit: number;
-  color: string;
+    name: string | null;
+    monthlyLimit: number;
+    color: string | null;
 };
+

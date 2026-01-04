@@ -2,8 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UpdateUserDto = {
-    name?: string | null;
+export type LoginRequestDto = {
     email?: string | null;
+    password?: string | null;
 };
 
