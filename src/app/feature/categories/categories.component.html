@@ -1,7 +1,7 @@
 <h2>Categories</h2>
 
 @if (loading()) {
-<div class="bg-blue-100">Loading...</div>
+<app-loading></app-loading>
 } @if (error()) {
 <app-error [error]="error()"></app-error>
 }
@@ -34,7 +34,7 @@
   <app-error [error]="error()"></app-error>
 
   } @if (loading()) {
-  <div class="bg-blue-100">Loading...</div>
+  <app-loading></app-loading>
   }
 
   <form [formGroup]="form()" (ngSubmit)="onSubmit()">

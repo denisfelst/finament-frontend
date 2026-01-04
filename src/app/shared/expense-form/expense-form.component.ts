@@ -81,7 +81,7 @@ export class ExpenseFormComponent {
     return control.value > today ? { dateInFuture: true } : null;
   }
 
-  public roundAmount() {
+  roundAmount() {
     const control = this.form().controls.amount;
     const value = control.value;
 
@@ -99,7 +99,7 @@ export class ExpenseFormComponent {
     }
   }
 
-  public toCamelCaseTag(): void {
+  toCamelCaseTag(): void {
     const control = this.form().controls.tag;
     let value: string = control.value ?? '';
 

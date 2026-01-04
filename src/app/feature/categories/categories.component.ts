@@ -10,11 +10,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { CategoryStore } from '../../store/category.store';
-import { ErrorComponent } from '../../shared/toast/error.component';
+import { ErrorComponent } from '../../shared/toast/error/error.component';
+import { LoadingComponent } from '../../shared/toast/loading/loading.component';
 
 @Component({
   selector: 'app-categories',
-  imports: [ModalComponent, ReactiveFormsModule, ErrorComponent],
+  imports: [
+    ModalComponent,
+    ReactiveFormsModule,
+    ErrorComponent,
+    LoadingComponent,
+  ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
 })
@@ -68,7 +74,7 @@ export class CategoriesComponent {
 
   private createCategory() {
     const payload: CreateCategoryDto = {
-      userId: 1, // value ev. replaced in categoryStore
+      userId: 1, // value ev. overwritten in categoryStore
       name: this.name(),
       monthlyLimit: this.monthlyLimit(),
       color: this.color(),

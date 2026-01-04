@@ -7,11 +7,17 @@ import { ICategory } from '../models/category.interface';
 import { IExpenseFormData } from '../models/expense-form-data.interface';
 import { ExpenseStore } from '../../store/expense.store';
 import { CategoryStore } from '../../store/category.store';
-import { ErrorComponent } from '../../shared/toast/error.component';
+import { ErrorComponent } from '../../shared/toast/error/error.component';
+import { LoadingComponent } from '../../shared/toast/loading/loading.component';
 
 @Component({
   selector: 'app-expenses',
-  imports: [ModalComponent, ExpenseFormComponent, ErrorComponent],
+  imports: [
+    ModalComponent,
+    ExpenseFormComponent,
+    ErrorComponent,
+    LoadingComponent,
+  ],
   templateUrl: './expenses.component.html',
   styleUrl: './expenses.component.scss',
 })
@@ -55,7 +61,6 @@ export class ExpensesComponent {
   }
 
   ngOnInit() {
-    // TODO: (???) cache this so it only loads once; also has to load WHEN NEEDED: when user edits an expense.
     this.categoryStore.load();
     this.expenseStore.load();
   }

@@ -1,11 +1,11 @@
 <h2>Add Expense</h2>
 
 @if (loading()) {
-<div>Loading...</div>
-} @if (saved()) {
-<p>Expense created successfully</p>
-} @if (error()) {
-<p>{{ error() }}</p>
+<app-loading></app-loading>
+} @if (message()) {
+<div class="bg-green-400">
+  {{ message() }}
+</div>
 } @if (!loading() && !error()) {
 <app-expense-form
   [categories]="categories()"
