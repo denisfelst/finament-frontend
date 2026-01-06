@@ -1,4 +1,4 @@
-<h2>User Panel</h2>
+<h2>Profile</h2>
 
 @if (loading()) {
 <app-loading></app-loading>
@@ -10,3 +10,5 @@
   <p>Email: {{ currentUser()!.email }}</p>
 </div>
 }
+
+<button (click)="onLogout()">Logout</button>

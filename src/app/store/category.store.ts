@@ -7,8 +7,6 @@ import { ICategory } from '../feature/models/category.interface';
 export class CategoryStore {
   private api = inject(CategoryService);
 
-  private readonly userId = 1; // TODO: remove when auth exists
-
   // state
   categories = signal<ICategory[]>([]);
   loading = signal(false);
@@ -32,7 +30,7 @@ export class CategoryStore {
     this.loading.set(true);
     this.error.set(null);
 
-    this.api.getApiCategories(this.userId).subscribe({
+    this.api.getApiCategories().subscribe({
       next: (res) => {
         this.categories.set(res);
         this.loading.set(false);
@@ -53,7 +51,7 @@ export class CategoryStore {
     return this.api
       .postApiCategories({
         ...dto,
-        userId: this.userId,
+        // userId: this.userId,
       })
       .subscribe({
         next: () => {

@@ -26,6 +26,44 @@ export class UserStore {
     });
   }
 
+  // PROFILE 'ME'
+  loadMe() {
+    this.loading.set(true);
+    this.error.set(null);
+
+    this.api.getApiUsersMe().subscribe({
+      next: (res) => {
+        this.currentUser.set(res);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.error.set('Failed to load profile');
+        this.loading.set(false);
+      },
+    });
+  }
+
+  updateMe(dto: UpdateUserDto) {
+    this.loading.set(true);
+    this.error.set(null);
+
+    this.api.putApiUsersMe(dto).subscribe({
+      next: (res) => {
+        this.message.set('Profile updated successfully');
+        this.currentUser.set(res);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.error.set('Failed to update profile');
+        this.loading.set(false);
+      },
+    });
+  }
+
+  // =================
+  // DISABLED FOR NOW:
+  // =================
+
   // ---- queries ----
 
   loadUsers() {
@@ -62,7 +100,6 @@ export class UserStore {
     });
   }
 
-  // TODO: use after auth for user.component ngOnInit
   loadCurrentUser() {
     this.loading.set(true);
     this.error.set(null);

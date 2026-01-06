@@ -37,8 +37,6 @@ export class AddExpenseComponent {
       categoryId: data.category,
       date: data.date,
       tag: data.tag,
-
-      userId: 1, // value ev. overwritten in expenseStore
     };
 
     this.expenseStore.create(payload);

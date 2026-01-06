@@ -7,8 +7,6 @@ import { ISetting } from '../feature/models/setting.interface';
 export class SettingStore {
   private api = inject(SettingService);
 
-  private readonly userId = 1; // TODO: replace when auth exists
-
   // state
   settings = signal<ISetting | null>(null);
   loading = signal(false);
@@ -32,7 +30,7 @@ export class SettingStore {
     this.loading.set(true);
     this.error.set(null);
 
-    this.api.getApiSettings(this.userId).subscribe({
+    this.api.getApiSettings().subscribe({
       next: (res) => {
         this.settings.set(res);
         this.loading.set(false);
@@ -54,7 +52,6 @@ export class SettingStore {
     this.api
       .putApiSettings({
         ...dto,
-        userId: this.userId,
       })
       .subscribe({
         next: () => {

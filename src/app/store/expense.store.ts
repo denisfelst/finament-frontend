@@ -7,8 +7,6 @@ import { IExpense } from '../feature/models/expense.interface';
 export class ExpenseStore {
   private api = inject(ExpenseService);
 
-  private readonly userId = 1; // TODO: remove when auth exists
-
   // state
   expenses = signal<IExpense[]>([]);
   loading = signal(false);
@@ -32,7 +30,7 @@ export class ExpenseStore {
     this.loading.set(true);
     this.error.set(null);
 
-    this.api.getApiExpenses(this.userId).subscribe({
+    this.api.getApiExpenses().subscribe({
       next: (res) => {
         this.expenses.set(res);
         this.loading.set(false);
@@ -54,7 +52,6 @@ export class ExpenseStore {
     this.api
       .postApiExpenses({
         ...dto,
-        userId: this.userId,
       })
       .subscribe({
         next: () => {

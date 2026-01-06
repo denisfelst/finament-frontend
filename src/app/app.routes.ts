@@ -4,26 +4,29 @@ import { DashboardComponent } from './feature/dashboard/dashboard.component';
 import { CategoriesComponent } from './feature/categories/categories.component';
 import { ExpensesComponent } from './feature/expenses/expenses.component';
 import { SettingsComponent } from './feature/settings/settings.component';
-import { UserComponent } from './feature/user/user.component';
 import { AddExpenseComponent } from './feature/add-expense/add-expense.component';
+import { LoginComponent } from './feature/login/login.component';
+import { authGuard } from './core/auth/guard/auth.guard';
+import { ProfileComponent } from './feature/profile/profile.component';
 
 export const routes: Routes = [
-  // { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   {
     path: '',
     component: AppContainerComponent,
-
+    canActivate: [authGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
       { path: 'expenses', component: ExpensesComponent },
       { path: 'categories', component: CategoriesComponent },
-      { path: 'settings', component: SettingsComponent },
-      { path: 'user', component: UserComponent },
       { path: 'add-expense', component: AddExpenseComponent },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'login', component: LoginComponent },
 
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'add-expense', pathMatch: 'full' },
     ],
   },
 
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: 'login' },
 ];

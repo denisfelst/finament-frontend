@@ -74,7 +74,6 @@ export class CategoriesComponent {
 
   private createCategory() {
     const payload: CreateCategoryDto = {
-      userId: 1, // value ev. overwritten in categoryStore
       name: this.name(),
       monthlyLimit: this.monthlyLimit(),
       color: this.color(),
