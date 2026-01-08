@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { CreateExpenseDto } from '../../../core/swagger';
-import { ExpenseFormComponent } from '../../../shared/expense-form/expense-form.component';
+import { ExpenseFormComponent } from '../expense-form/expense-form.component';
 import { IExpenseFormData } from '../models/expense-form-data.interface';
 import { LoadingComponent } from '../../../shared/toast/loading/loading.component';
 import { ExpenseStore } from '../../../shared/store/expense.store';
