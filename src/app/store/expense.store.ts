@@ -1,7 +1,7 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { ExpenseService } from '../api';
 import { CreateExpenseDto, UpdateExpenseDto } from '../api';
-import { IExpense } from '../feature/models/expense.interface';
+import { IExpense } from '../components/models/expense.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ExpenseStore {

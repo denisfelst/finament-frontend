@@ -1,7 +1,7 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { CategoryService } from '../api';
 import { CreateCategoryDto, UpdateCategoryDto } from '../api';
-import { ICategory } from '../feature/models/category.interface';
+import { ICategory } from '../components/models/category.interface';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryStore {

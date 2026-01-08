@@ -1,7 +1,7 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { SettingService } from '../api';
 import { UpsertSettingDto } from '../api';
-import { ISetting } from '../feature/models/setting.interface';
+import { ISetting } from '../components/models/setting.interface';
 
 @Injectable({ providedIn: 'root' })
 export class SettingStore {

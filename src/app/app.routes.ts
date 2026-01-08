@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 import { AppContainerComponent } from './core/layout/app-container.component';
-import { DashboardComponent } from './feature/dashboard/dashboard.component';
-import { CategoriesComponent } from './feature/categories/categories.component';
-import { ExpensesComponent } from './feature/expenses/expenses.component';
-import { SettingsComponent } from './feature/settings/settings.component';
-import { AddExpenseComponent } from './feature/add-expense/add-expense.component';
-import { LoginComponent } from './feature/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { ExpensesComponent } from './components/expenses/expenses.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { AddExpenseComponent } from './components/add-expense/add-expense.component';
+import { LoginComponent } from './components/login/login.component';
 import { authGuard } from './core/auth/guard/auth.guard';
-import { ProfileComponent } from './feature/profile/profile.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },

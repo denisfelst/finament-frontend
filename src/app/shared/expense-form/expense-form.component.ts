@@ -6,9 +6,9 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { ICategory } from '../../feature/models/category.interface';
-import { IExpenseFormData } from '../../feature/models/expense-form-data.interface';
-import { IExpense } from '../../feature/models/expense.interface';
+import { ICategory } from '../../components/models/category.interface';
+import { IExpenseFormData } from '../../components/models/expense-form-data.interface';
+import { IExpense } from '../../components/models/expense.interface';
 
 @Component({
   selector: 'app-expense-form',
