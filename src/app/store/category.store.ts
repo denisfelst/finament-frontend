@@ -36,7 +36,7 @@ export class CategoryStore {
         this.loading.set(false);
       },
       error: (e) => {
-        this.error.set('Error loading categories');
+        this.error.set('Error loading categories: ' + e.body.message);
         console.error('Error: ', e);
         this.loading.set(false);
       },
@@ -51,7 +51,6 @@ export class CategoryStore {
     return this.api
       .postApiCategories({
         ...dto,
-        // userId: this.userId,
       })
       .subscribe({
         next: () => {
@@ -59,7 +58,7 @@ export class CategoryStore {
           this.load();
         },
         error: (e) => {
-          this.error.set('Failed to create category');
+          this.error.set('Failed to create category: ' + e.body.message);
           console.error('Error: ', e);
           this.loading.set(false);
         },
@@ -72,9 +71,10 @@ export class CategoryStore {
       next: () => {
         this.message.set('Category updated successfully');
         this.load();
+        this.loading.set(false);
       },
       error: (e) => {
-        this.error.set('Failed to update category');
+        this.error.set('Failed to update category: ' + e.body.message);
         console.error('Error: ', e);
         this.loading.set(false);
       },
@@ -87,10 +87,11 @@ export class CategoryStore {
       next: () => {
         this.message.set('Category deleted successfully');
         this.load();
+        this.loading.set(false);
       },
       error: (e) => {
-        this.error.set('Failed to delete category');
-        console.error('Error: ', e);
+        this.error.set('Failed to delete category: ' + e.body.message);
+        console.error('Error: ', e.message);
         this.loading.set(false);
       },
     });

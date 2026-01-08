@@ -36,8 +36,8 @@ export class UserStore {
         this.currentUser.set(res);
         this.loading.set(false);
       },
-      error: () => {
-        this.error.set('Failed to load profile');
+      error: (e) => {
+        this.error.set('Failed to load profile: ' + e.body.message);
         this.loading.set(false);
       },
     });
@@ -53,8 +53,8 @@ export class UserStore {
         this.currentUser.set(res);
         this.loading.set(false);
       },
-      error: () => {
-        this.error.set('Failed to update profile');
+      error: (e) => {
+        this.error.set('Failed to update profile: ' + e.body.message);
         this.loading.set(false);
       },
     });
@@ -138,7 +138,7 @@ export class UserStore {
         this.currentUser.set(res);
       },
       error: (e) => {
-        this.error.set('Failed creating user');
+        this.error.set('Failed creating user: ' + e.body.message);
         console.error('Error:', e);
         this.loading.set(false);
       },
@@ -155,7 +155,7 @@ export class UserStore {
         this.loadUser(id);
       },
       error: (e) => {
-        this.error.set('Failed to update user');
+        this.error.set('Failed to update user: ' + e.body.message);
         console.error('Error:', e);
         this.loading.set(false);
       },
@@ -175,7 +175,7 @@ export class UserStore {
         }
       },
       error: (e) => {
-        this.error.set('Failed to delete user');
+        this.error.set('Failed to delete user: ' + e.body.message);
         console.error('Error:', e);
         this.loading.set(false);
       },

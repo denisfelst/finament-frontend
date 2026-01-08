@@ -36,7 +36,7 @@ export class SettingStore {
         this.loading.set(false);
       },
       error: (e) => {
-        this.error.set('Error loading settings');
+        this.error.set('Error loading settings: ' + e.body.message);
         console.error('Error:', e);
         this.loading.set(false);
       },
@@ -59,7 +59,7 @@ export class SettingStore {
           this.load();
         },
         error: (e) => {
-          this.error.set('Failed saving settings');
+          this.error.set('Failed saving settings: ' + e.body.message);
           console.error('Error:', e);
           this.loading.set(false);
         },

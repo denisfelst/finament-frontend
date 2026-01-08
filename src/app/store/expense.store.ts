@@ -36,7 +36,7 @@ export class ExpenseStore {
         this.loading.set(false);
       },
       error: (e) => {
-        this.error.set('Error loading expenses');
+        this.error.set('Error loading expenses: ' + e.body.message);
         console.error('Error: ', e);
         this.loading.set(false);
       },
@@ -59,7 +59,7 @@ export class ExpenseStore {
           this.load();
         },
         error: (e) => {
-          this.error.set('Failed to create expense');
+          this.error.set('Failed to create expense: ' + e.body.message);
           console.error('Error: ', e);
           this.loading.set(false);
         },
@@ -76,7 +76,7 @@ export class ExpenseStore {
         this.load();
       },
       error: (e) => {
-        this.error.set('Failed to update expense');
+        this.error.set('Failed to update expense: ' + e.body.message);
         console.error('Error: ', e);
         this.loading.set(false);
       },
@@ -93,7 +93,7 @@ export class ExpenseStore {
         this.load();
       },
       error: (e) => {
-        this.error.set('Failed to delete expense');
+        this.error.set('Failed to delete expense: ' + e.body.message);
         console.error('Error: ', e);
         this.loading.set(false);
       },
