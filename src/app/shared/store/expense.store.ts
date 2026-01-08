@@ -1,14 +1,14 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
-import { CategoryService } from '../api';
-import { CreateCategoryDto, UpdateCategoryDto } from '../api';
-import { ICategory } from '../components/models/category.interface';
+import { ExpenseService } from '../../core/swagger';
+import { CreateExpenseDto, UpdateExpenseDto } from '../../core/swagger';
+import { IExpense } from '../../features/expenses/models/expense.interface';
 
 @Injectable({ providedIn: 'root' })
-export class CategoryStore {
-  private api = inject(CategoryService);
+export class ExpenseStore {
+  private api = inject(ExpenseService);
 
   // state
-  categories = signal<ICategory[]>([]);
+  expenses = signal<IExpense[]>([]);
   loading = signal(false);
   error = signal<string | null>(null);
   message = signal<string | null>(null);
@@ -30,13 +30,13 @@ export class CategoryStore {
     this.loading.set(true);
     this.error.set(null);
 
-    this.api.getApiCategories().subscribe({
+    this.api.getApiExpenses().subscribe({
       next: (res) => {
-        this.categories.set(res);
+        this.expenses.set(res);
         this.loading.set(false);
       },
       error: (e) => {
-        this.error.set('Error loading categories: ' + e.body.message);
+        this.error.set('Error loading expenses: ' + e.body.message);
         console.error('Error: ', e);
         this.loading.set(false);
       },
@@ -45,36 +45,38 @@ export class CategoryStore {
 
   // ---- mutations ----
 
-  create(dto: CreateCategoryDto) {
+  create(dto: CreateExpenseDto) {
     this.loading.set(true);
+    this.error.set(null);
 
-    return this.api
-      .postApiCategories({
+    this.api
+      .postApiExpenses({
         ...dto,
       })
       .subscribe({
         next: () => {
-          this.message.set('Category created successfully');
+          this.message.set('Expense created successfully');
           this.load();
         },
         error: (e) => {
-          this.error.set('Failed to create category: ' + e.body.message);
+          this.error.set('Failed to create expense: ' + e.body.message);
           console.error('Error: ', e);
           this.loading.set(false);
         },
       });
   }
 
-  update(id: number, dto: UpdateCategoryDto) {
+  update(id: number, dto: UpdateExpenseDto) {
     this.loading.set(true);
-    return this.api.putApiCategories(id, dto).subscribe({
+    this.error.set(null);
+
+    this.api.putApiExpenses(id, dto).subscribe({
       next: () => {
-        this.message.set('Category updated successfully');
+        this.message.set('Expense updated successfully');
         this.load();
-        this.loading.set(false);
       },
       error: (e) => {
-        this.error.set('Failed to update category: ' + e.body.message);
+        this.error.set('Failed to update expense: ' + e.body.message);
         console.error('Error: ', e);
         this.loading.set(false);
       },
@@ -83,15 +85,16 @@ export class CategoryStore {
 
   delete(id: number) {
     this.loading.set(true);
-    return this.api.deleteApiCategories(id).subscribe({
+    this.error.set(null);
+
+    this.api.deleteApiExpenses(id).subscribe({
       next: () => {
-        this.message.set('Category deleted successfully');
+        this.message.set('Expense deleted successfully');
         this.load();
-        this.loading.set(false);
       },
       error: (e) => {
-        this.error.set('Failed to delete category: ' + e.body.message);
-        console.error('Error: ', e.message);
+        this.error.set('Failed to delete expense: ' + e.body.message);
+        console.error('Error: ', e);
         this.loading.set(false);
       },
     });

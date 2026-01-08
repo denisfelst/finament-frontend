@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { SettingStore } from '../../store/setting.store';
+import { SettingStore } from '../../shared/store/setting.store';
 import { ErrorComponent } from '../../shared/toast/error/error.component';
 import { LoadingComponent } from '../../shared/toast/loading/loading.component';
 

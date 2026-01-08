@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService, LoginRequestDto } from '../../api';
-import { AuthStore } from '../../store/auth.store';
+import { AuthService, LoginRequestDto } from '../../core/swagger';
+import { AuthStore } from '../../shared/store/auth.store';
 import { Router } from '@angular/router';
 import { ErrorComponent } from '../../shared/toast/error/error.component';
 import { LoadingComponent } from '../../shared/toast/loading/loading.component';

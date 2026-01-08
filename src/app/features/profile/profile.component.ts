@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { UserStore } from '../../store/user.store';
+import { UserStore } from '../../shared/store/user.store';
 import { LoadingComponent } from '../../shared/toast/loading/loading.component';
 import { ErrorComponent } from '../../shared/toast/error/error.component';
-import { AuthStore } from '../../store/auth.store';
+import { AuthStore } from '../../shared/store/auth.store';
 
 @Component({
   selector: 'app-profile',

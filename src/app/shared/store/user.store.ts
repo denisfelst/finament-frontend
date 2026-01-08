@@ -1,7 +1,7 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
-import { UserService } from '../api';
-import { CreateUserDto, UpdateUserDto } from '../api';
-import { IUser } from '../components/models/user.interface';
+import { UserService } from '../../core/swagger';
+import { CreateUserDto, UpdateUserDto } from '../../core/swagger';
+import { IUser } from '../../features/profile/models/user.interface';
 
 @Injectable({ providedIn: 'root' })
 export class UserStore {

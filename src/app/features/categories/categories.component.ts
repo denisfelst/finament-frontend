@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { CreateCategoryDto, UpdateCategoryDto } from '../../api';
+import { CreateCategoryDto, UpdateCategoryDto } from '../../core/swagger';
 import { ModalComponent } from '../../shared/modal/modal.component';
-import { ICategory } from '../models/category.interface';
+import { ICategory } from './models/category.interface';
 import {
   FormBuilder,
   FormControl,
@@ -9,7 +9,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { CategoryStore } from '../../store/category.store';
+import { CategoryStore } from '../../shared/store/category.store';
 import { ErrorComponent } from '../../shared/toast/error/error.component';
 import { LoadingComponent } from '../../shared/toast/loading/loading.component';
 

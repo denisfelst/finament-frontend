@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, LoginRequestDto } from '../api';
+import { AuthService, LoginRequestDto } from '../../core/swagger';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStore {

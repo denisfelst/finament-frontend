@@ -1,12 +1,16 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { CategoryService, ExpenseService, UpdateExpenseDto } from '../../api';
+import {
+  CategoryService,
+  ExpenseService,
+  UpdateExpenseDto,
+} from '../../core/swagger';
 import { ModalComponent } from '../../shared/modal/modal.component';
-import { IExpense } from '../models/expense.interface';
+import { IExpense } from './models/expense.interface';
 import { ExpenseFormComponent } from '../../shared/expense-form/expense-form.component';
-import { ICategory } from '../models/category.interface';
-import { IExpenseFormData } from '../models/expense-form-data.interface';
-import { ExpenseStore } from '../../store/expense.store';
-import { CategoryStore } from '../../store/category.store';
+import { ICategory } from '../categories/models/category.interface';
+import { IExpenseFormData } from './models/expense-form-data.interface';
+import { ExpenseStore } from '../../shared/store/expense.store';
+import { CategoryStore } from '../../shared/store/category.store';
 import { ErrorComponent } from '../../shared/toast/error/error.component';
 import { LoadingComponent } from '../../shared/toast/loading/loading.component';
 

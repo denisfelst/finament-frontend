@@ -1,11 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
-import { ExpenseService, CategoryService, CreateExpenseDto } from '../../api';
-import { ExpenseFormComponent } from '../../shared/expense-form/expense-form.component';
-import { ICategory } from '../models/category.interface';
+import { CreateExpenseDto } from '../../../core/swagger';
+import { ExpenseFormComponent } from '../../../shared/expense-form/expense-form.component';
 import { IExpenseFormData } from '../models/expense-form-data.interface';
-import { LoadingComponent } from '../../shared/toast/loading/loading.component';
-import { ExpenseStore } from '../../store/expense.store';
-import { CategoryStore } from '../../store/category.store';
+import { LoadingComponent } from '../../../shared/toast/loading/loading.component';
+import { ExpenseStore } from '../../../shared/store/expense.store';
+import { CategoryStore } from '../../../shared/store/category.store';
 
 @Component({
   selector: 'app-add-expense',
