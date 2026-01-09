@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { CreateCategoryDto, UpdateCategoryDto } from '../../core/swagger';
-import { ModalComponent } from '../../shared/modal/modal.component';
+
 import { ICategory } from './models/category.interface';
 import {
   FormBuilder,
@@ -12,14 +12,17 @@ import {
 import { CategoryStore } from '../../shared/store/category.store';
 import { ErrorComponent } from '../../shared/toast/error/error.component';
 import { LoadingComponent } from '../../shared/toast/loading/loading.component';
+import { FullFullModalComponent } from '../../shared/modal/full-modal/full-modal.component';
+import { ConfirmationFullModalComponent } from '../../shared/modal/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-categories',
   imports: [
-    ModalComponent,
+    FullFullModalComponent,
     ReactiveFormsModule,
     ErrorComponent,
     LoadingComponent,
+    ConfirmationFullModalComponent,
   ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
@@ -35,6 +38,7 @@ export class CategoriesComponent {
   loading = this.categoryStore.loading;
   error = this.categoryStore.error;
   message = this.categoryStore.message;
+  confirmation = signal<boolean>(false);
 
   form = computed(() => {
     return this.formBuilder.group({
@@ -179,7 +183,17 @@ export class CategoriesComponent {
     }
   }
 
-  onDelete() {
+  handleDeletePress() {
+    this.confirmation.set(true);
+  }
+
+  onDelete(confirmed: boolean) {
+    if (!confirmed) {
+      this.confirmation.set(false);
+      return;
+    }
+
     this.deleteCategory();
+    this.confirmation.set(false);
   }
 }

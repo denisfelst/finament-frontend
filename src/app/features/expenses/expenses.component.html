@@ -31,7 +31,7 @@
   }
 </ul>
 
-<app-modal
+<app-full-modal
   [name]="currentModal() ?? ''"
   [open]="currentModal() !== null"
   (close)="setModal(null)"
@@ -40,7 +40,12 @@
     [categories]="categories()"
     [expense]="currentExpense()"
     (submission)="onSubmit($event)"
-    (delete)="onDelete()"
+    (delete)="handleDeletePress()"
   ></app-expense-form>
-</app-modal>
+</app-full-modal>
+
+<app-confirmation-modal
+  [open]="confirmation()"
+  (submission)="onDelete($event)"
+></app-confirmation-modal>
 }

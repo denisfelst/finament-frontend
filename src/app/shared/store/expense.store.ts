@@ -67,6 +67,10 @@ export class ExpenseStore {
   }
 
   update(id: number, dto: UpdateExpenseDto) {
+    if (!id) {
+      this.error.set('No selected expense!');
+    }
+
     this.loading.set(true);
     this.error.set(null);
 
@@ -84,6 +88,10 @@ export class ExpenseStore {
   }
 
   delete(id: number) {
+    if (!id) {
+      this.error.set('No selected expense!');
+    }
+
     this.loading.set(true);
     this.error.set(null);
 

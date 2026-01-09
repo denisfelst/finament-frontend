@@ -21,7 +21,7 @@
 </ul>
 }
 
-<app-modal
+<app-full-modal
   [name]="currentCategory()?.name ?? 'New Category'"
   [open]="currentModal() !== null"
   (close)="setModal(null)"
@@ -91,11 +91,16 @@
       } }
     </div>
     @if(currentCategory()?.id){
-    <button (click)="onDelete()">Delete</button>
+    <button (click)="handleDeletePress()">Delete</button>
     }
 
     <button [disabled]="!form().valid" type="submit">
       {{ currentCategory()?.id ? "Save" : "Add" }}
     </button>
   </form>
-</app-modal>
+
+  <app-confirmation-modal
+    [open]="confirmation()"
+    (submission)="onDelete($event)"
+  ></app-confirmation-modal>
+</app-full-modal>

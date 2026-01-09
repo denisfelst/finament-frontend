@@ -66,6 +66,10 @@ export class CategoryStore {
   }
 
   update(id: number, dto: UpdateCategoryDto) {
+    if (!id) {
+      this.error.set('No selected category!');
+    }
+
     this.loading.set(true);
     return this.api.putApiCategories(id, dto).subscribe({
       next: () => {
@@ -82,6 +86,10 @@ export class CategoryStore {
   }
 
   delete(id: number) {
+    if (!id) {
+      this.error.set('No selected category!');
+    }
+
     this.loading.set(true);
     return this.api.deleteApiCategories(id).subscribe({
       next: () => {

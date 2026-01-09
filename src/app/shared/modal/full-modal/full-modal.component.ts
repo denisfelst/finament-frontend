@@ -1,17 +1,18 @@
 import { Component, input, output } from '@angular/core';
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-full-modal',
   imports: [],
-  templateUrl: './modal.component.html',
-  styleUrl: './modal.component.scss',
+  templateUrl: './full-modal.component.html',
+  styleUrl: './full-modal.component.scss',
 })
-export class ModalComponent {
+export class FullFullModalComponent {
   name = input<string>('');
   open = input.required<boolean>();
   close = output<void>();
 
   onBackdropClick() {
+    console.log('onBackdropClick :');
     this.close.emit();
   }
 }

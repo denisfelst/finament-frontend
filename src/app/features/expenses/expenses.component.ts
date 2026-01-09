@@ -1,6 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { UpdateExpenseDto } from '../../core/swagger';
-import { ModalComponent } from '../../shared/modal/modal.component';
 import { IExpense } from './models/expense.interface';
 import { ExpenseFormComponent } from './expense-form/expense-form.component';
 import { IExpenseFormData } from './models/expense-form-data.interface';
@@ -8,14 +7,17 @@ import { ExpenseStore } from '../../shared/store/expense.store';
 import { CategoryStore } from '../../shared/store/category.store';
 import { ErrorComponent } from '../../shared/toast/error/error.component';
 import { LoadingComponent } from '../../shared/toast/loading/loading.component';
+import { FullFullModalComponent } from '../../shared/modal/full-modal/full-modal.component';
+import { ConfirmationFullModalComponent } from '../../shared/modal/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-expenses',
   imports: [
-    ModalComponent,
+    FullFullModalComponent,
     ExpenseFormComponent,
     ErrorComponent,
     LoadingComponent,
+    ConfirmationFullModalComponent,
   ],
   templateUrl: './expenses.component.html',
   styleUrl: './expenses.component.scss',
@@ -32,6 +34,7 @@ export class ExpensesComponent {
   loading = this.expenseStore.loading;
   error = this.expenseStore.error;
   message = this.expenseStore.message;
+  confirmation = signal<boolean>(false);
 
   orderedExpenses = computed(() => {
     // descending: newest first, based on date
@@ -78,7 +81,17 @@ export class ExpensesComponent {
     this.updateExpense(data);
   }
 
-  onDelete() {
+  handleDeletePress() {
+    this.confirmation.set(true);
+  }
+
+  onDelete(confirmed: boolean) {
+    if (!confirmed) {
+      this.confirmation.set(false);
+      return;
+    }
+
     this.deleteExpense();
+    this.confirmation.set(false);
   }
 }
