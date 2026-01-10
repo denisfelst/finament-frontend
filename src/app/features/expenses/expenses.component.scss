@@ -1,0 +1,39 @@
+@use "tailwindcss";
+
+.expense-list {
+  @apply flex flex-col divide-y divide-gray-200;
+}
+
+.expense-item {
+  @apply flex items-center gap-[12px] px-[12px] py-[12px]
+         bg-white cursor-pointer
+         active:bg-gray-100;
+}
+
+/* Left ID */
+.expense-id {
+  @apply text-gray-400 text-sm w-[32px] shrink-0;
+}
+
+/* Middle content */
+.expense-content {
+  @apply flex flex-col flex-1 overflow-hidden;
+}
+
+.expense-title {
+  @apply text-base font-medium text-black truncate;
+}
+
+.expense-subtitle {
+  @apply text-sm text-gray-500 truncate;
+}
+
+/* Amount */
+.expense-amount {
+  @apply text-base font-medium text-black shrink-0;
+}
+
+/* Chevron */
+.expense-chevron {
+  @apply text-gray-400 text-xl ml-[4px];
+}

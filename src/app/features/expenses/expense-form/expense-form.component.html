@@ -1,12 +1,10 @@
 <form [formGroup]="form()" (ngSubmit)="onSubmit()">
-  <div>
+  <div class="form-field">
     <label for="amount">Amount *</label>
-    <br />
     <input
       id="amount"
       formControlName="amount"
       type="number"
-      class="border-2"
       min="1"
       step="1"
       (blur)="roundAmount()"
@@ -14,14 +12,13 @@
   </div>
 
   @if (form().controls.amount.errors?.['notInteger']) {
-  <div class="text-[#f00]">Amount must be a whole number</div>
+  <div class="form-field-error">Amount must be a whole number</div>
   } @if (form().controls.amount.errors?.['min']) {
-  <div class="text-[#f00]">Amount must be at least 1</div>
+  <div class="form-field-error">Amount must be at least 1</div>
   }
 
-  <div>
+  <div class="form-field">
     <label for="category">Category *</label>
-    <br />
     <select
       id="category"
       formControlName="category"
@@ -34,18 +31,16 @@
     </select>
   </div>
 
-  <div>
+  <div class="form-field">
     <label for="date">Date *</label>
-    <br />
     <input id="date" formControlName="date" class="border-2" type="date" />
     @if(form().controls.date.errors?.['dateInFuture']) {
     <div class="text-[#f00]">Date cannot be in the future</div>
     }
   </div>
 
-  <div>
+  <div class="form-field">
     <label for="tag">Tag #</label>
-    <br />
     <input
       id="tag"
       formControlName="tag"

@@ -17,17 +17,35 @@
 <app-loading></app-loading>
 }
 
-<ul>
-  @for (exp of orderedExpenses(); let i = $index; track exp.id) {
+<ul class="expense-list">
+  @for (exp of orderedExpenses(); track exp.id) {
   <li>
-    <span>
-      #{{ orderedExpenses().length - i }} - {{ exp.amount }} —
-      {{ exp.categoryId }} — {{ exp.tag }}
-      <!-- {{ exp.date }} -->
-      -
-    </span>
-    <!-- TODO: integrate in whole div -->
-    <button (click)="setModal(exp.id)" popovertarget="modal">Edit</button>
+    <button
+      class="expense-item w-full"
+      (click)="setModal(exp.id)"
+      popovertarget="modal"
+    >
+      <!-- Left: ID -->
+      <div class="expense-id">
+        {{ exp.id }}
+      </div>
+
+      <!-- Middle: content -->
+      <div class="expense-content">
+        <div class="expense-title">
+          {{ exp.categoryId }}
+        </div>
+        <div class="expense-subtitle">
+          {{ exp.tag }}
+        </div>
+      </div>
+
+      <!-- Right: amount -->
+      <div class="expense-amount">{{ exp.amount }} €</div>
+
+      <!-- Chevron -->
+      <div class="expense-chevron">›</div>
+    </button>
   </li>
   }
 </ul>

@@ -18,15 +18,38 @@
     Add
   </app-button>
 </div>
-<ul>
+<ul class="category-list">
   @for (cat of orderedCategories(); track cat.id) {
   <li>
-    <span>{{ cat.name }} — {{ cat.monthlyLimit }} — {{ cat.color }} - </span>
-    <!-- TODO: integrate in whole div -->
-    <button (click)="setModal(cat.id)" popovertarget="modal">Edit</button>
+    <button
+      class="category-item w-full"
+      (click)="setModal(cat.id)"
+      popovertarget="modal"
+    >
+      <!-- Left: color dot -->
+      <div class="category-dot" [style.backgroundColor]="cat.color"></div>
+
+      <!-- Middle: name -->
+      <div class="category-content">
+        <div class="category-title">
+          {{ cat.name }}
+        </div>
+      </div>
+
+      <!-- Right: amount -->
+      <div class="category-amount">
+        <!-- TODO: currency PIPE -->
+        <div class="category-value">{{ cat.monthlyLimit }} €</div>
+        <div class="category-period">/ month</div>
+      </div>
+
+      <!-- Chevron -->
+      <div class="category-chevron">›</div>
+    </button>
   </li>
   }
 </ul>
+
 }
 
 <app-full-modal
@@ -47,9 +70,8 @@
 
   <form [formGroup]="form()" (ngSubmit)="onSubmit()">
     <section class="flex flex-col gap-4 mb-4">
-      <div>
+      <div class="form-field">
         <label for="name">Name *</label>
-        <br />
         <input
           id="name"
           formControlName="name"
@@ -65,9 +87,8 @@
         } }
       </div>
 
-      <div>
+      <div class="form-field">
         <label for="monthlyLimit">Monthly Estimate *</label>
-        <br />
         <input
           id="monthlyLimit"
           formControlName="monthlyLimit"
@@ -81,9 +102,8 @@
         }
       </div>
 
-      <div>
+      <div class="form-field">
         <label for="color">Color *</label>
-        <br />
         <input
           id="color"
           formControlName="color"

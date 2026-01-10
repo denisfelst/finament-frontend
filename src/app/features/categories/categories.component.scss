@@ -1,0 +1,45 @@
+@use "tailwindcss";
+
+.category-list {
+  @apply flex flex-col;
+}
+
+.category-item {
+  @apply flex items-center gap-[12px]
+         px-[12px] py-[12px]
+         bg-white cursor-pointer
+         border-b-1
+         active:bg-gray-100;
+}
+
+/* Color dot */
+.category-dot {
+  @apply w-[16px] h-[16px] rounded-full shrink-0 border-1;
+}
+
+/* Middle content */
+.category-content {
+  @apply flex-1 overflow-hidden;
+}
+
+.category-title {
+  @apply text-base font-medium text-black truncate;
+}
+
+/* Amount */
+.category-amount {
+  @apply flex flex-col items-end shrink-0;
+}
+
+.category-value {
+  @apply text-base font-medium text-black;
+}
+
+.category-period {
+  @apply text-sm text-gray-500;
+}
+
+/* Chevron */
+.category-chevron {
+  @apply text-gray-400 text-xl ml-[4px];
+}
