@@ -1,11 +1,23 @@
 @if (open()) {
 <div class="fixed inset-0 flex items-center justify-center bg-black/40">
-  <div class="bg-white p-4 rounded shadow">
+  <div class="bg-white w-[90%] p-4 rounded shadow">
     <p>{{ mainText() }}</p>
+    <div class="mt-4 flex gap-2 justify-around">
+      <app-button
+        (clicked)="onCancel()"
+        [size]="ButtonSize.Medium"
+        [design]="ButtonType.Secondary"
+      >
+        {{ cancelText() }}
+      </app-button>
 
-    <div class="mt-4 flex gap-2">
-      <button (click)="onCancel()">{{ cancelText() }}</button>
-      <button (click)="onYes()">{{ yesText() }}</button>
+      <app-button
+        (clicked)="onYes()"
+        [size]="ButtonSize.Medium"
+        [design]="ButtonType.Secondary"
+      >
+        {{ yesText() }}
+      </app-button>
     </div>
   </div>
 </div>

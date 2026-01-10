@@ -14,6 +14,9 @@ import { ErrorComponent } from '../../shared/toast/error/error.component';
 import { LoadingComponent } from '../../shared/toast/loading/loading.component';
 import { FullFullModalComponent } from '../../shared/modal/full-modal/full-modal.component';
 import { ConfirmationFullModalComponent } from '../../shared/modal/confirmation-modal/confirmation-modal.component';
+import { ButtonComponent } from '../../shared/elements/button/button.component';
+import { ButtonSize } from '../../shared/models/button-size.enum';
+import { ButtonType } from '../../shared/models/button-type.enum';
 
 @Component({
   selector: 'app-categories',
@@ -23,6 +26,7 @@ import { ConfirmationFullModalComponent } from '../../shared/modal/confirmation-
     ErrorComponent,
     LoadingComponent,
     ConfirmationFullModalComponent,
+    ButtonComponent,
   ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
@@ -60,6 +64,9 @@ export class CategoriesComponent {
   name = computed(() => this.form().get('name')?.value ?? 'name');
   monthlyLimit = computed(() => this.form().get('monthlyLimit')?.value ?? 100);
   color = computed(() => this.form().get('color')?.value ?? '#FFFFFF');
+
+  ButtonSize = ButtonSize;
+  ButtonType = ButtonType;
 
   orderedCategories = computed(() => {
     // alphabetical order

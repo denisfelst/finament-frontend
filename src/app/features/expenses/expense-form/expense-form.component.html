@@ -58,9 +58,12 @@
   </div>
 
   @if(expense()?.id){
-  <button (click)="onDelete()">Delete</button>
+  <app-button (clicked)="onDelete()" [design]="ButtonType.Secondary">
+    Delete
+  </app-button>
   }
-  <button type="submit" [disabled]="!form().valid">
-    {{ expense() === null ? "Add" : "Edit" }}
-  </button>
+
+  <app-button [disabled]="!form().valid" type="submit">
+    {{ expense() === null ? "Add" : "Save" }}
+  </app-button>
 </form>

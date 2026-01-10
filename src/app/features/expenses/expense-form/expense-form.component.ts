@@ -9,10 +9,12 @@ import {
 import { ICategory } from '../../categories/models/category.interface';
 import { IExpense } from '../models/expense.interface';
 import { IExpenseFormData } from '../models/expense-form-data.interface';
+import { ButtonComponent } from '../../../shared/elements/button/button.component';
+import { ButtonType } from '../../../shared/models/button-type.enum';
 
 @Component({
   selector: 'app-expense-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ButtonComponent],
   templateUrl: './expense-form.component.html',
   styleUrl: './expense-form.component.scss',
 })
@@ -50,6 +52,8 @@ export class ExpenseFormComponent {
   category = computed<number>(() => this.form().get('category')?.value ?? 0);
   date = computed<string>(() => this.form().get('date')?.value ?? '');
   tag = computed<string | null>(() => this.form().get('tag')?.value ?? null);
+
+  ButtonType = ButtonType;
 
   private amountValidator(control: FormControl): ValidationErrors | null {
     if (!control.value) {

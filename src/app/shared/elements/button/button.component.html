@@ -1,0 +1,15 @@
+<div class="flex-1 w-full my-1">
+  <button
+    class="rounded-2 font-normal pointer w-full min-w-[120px]"
+    [type]="type()"
+    [disabled]="disabled()"
+    [class]="design() + ' ' + size()"
+    (click)="onClick($event)"
+    (mouseenter)="onMouseEnter($event)"
+    (mouseleave)="onMouseLeave($event)"
+    [attr.popovertarget]="popoverTarget()"
+    [attr.popovertargetaction]="popoverTarget() ? 'toggle' : null"
+  >
+    <ng-content></ng-content>
+  </button>
+</div>

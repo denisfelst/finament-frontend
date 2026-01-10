@@ -11,4 +11,10 @@
 </div>
 }
 
-<button (click)="onLogout()">Logout</button>
+<app-button
+  [design]="ButtonType.Tertiary"
+  [disabled]="loading()"
+  (clicked)="onLogout()"
+>
+  Logout
+</app-button>
