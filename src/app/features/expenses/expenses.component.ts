@@ -62,6 +62,12 @@ export class ExpensesComponent {
     return this.expenses().find((expense) => expense.id === id) ?? null;
   }
 
+  getCategoryName(categoryId: number): string {
+    return (
+      this.categories().find((c) => c.id === categoryId)?.name ?? 'Unknown'
+    );
+  }
+
   ngOnInit() {
     this.categoryStore.load();
     this.expenseStore.load();
