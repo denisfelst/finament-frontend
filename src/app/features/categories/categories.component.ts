@@ -1,6 +1,5 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { CreateCategoryDto, UpdateCategoryDto } from '../../core/swagger';
-
 import { ICategory } from './models/category.interface';
 import {
   FormBuilder,
@@ -41,6 +40,20 @@ export class CategoriesComponent {
   error = this.categoryStore.error;
   message = this.categoryStore.message;
   confirmation = signal<boolean>(false);
+
+  deleteWarning = computed(() =>
+    this.currentCategory()
+      ? this.currentCategory()!.expenseCount > 0 && this.confirmation()
+      : false
+  );
+
+  deleteMainText = computed(() => {
+    const name = this.currentCategory()?.name;
+    const count = this.currentCategory()?.expenseCount;
+    return this.deleteWarning()
+      ? `Are you sure you want to delete category ${name}? This category contains ${count} expenses`
+      : `Are you sure you want to delete category ${name}?`;
+  });
 
   form = this.formBuilder.group({
     name: [

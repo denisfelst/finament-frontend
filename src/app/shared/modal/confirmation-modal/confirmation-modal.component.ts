@@ -11,9 +11,10 @@ import { ButtonComponent } from '../../elements/button/button.component';
 })
 export class ConfirmationFullModalComponent {
   open = input.required<boolean>();
+  warning = input<boolean>();
   cancelText = input<string>('Cancel');
   yesText = input<string>('Yes');
-  mainText = input<string>('Are you sure?');
+  mainText = input<string | null>('Are you sure?');
 
   submission = output<boolean>();
 

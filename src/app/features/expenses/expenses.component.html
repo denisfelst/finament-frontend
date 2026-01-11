@@ -20,9 +20,7 @@
       popovertarget="modal"
     >
       <!-- Left: ID -->
-      <div class="expense-id">
-        {{ exp.id }}
-      </div>
+      <div class="expense-id">#{{ exp.id }}</div>
 
       <!-- Middle: content -->
       <div class="expense-content">
@@ -67,5 +65,8 @@
   <app-confirmation-modal
     [open]="confirmation()"
     (submission)="onDelete($event)"
+    [mainText]="
+      'Are you sure you want to delete expense #' + currentExpense()?.id + '?'
+    "
   ></app-confirmation-modal>
 </app-full-modal>

@@ -1,6 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 @use "tailwindcss";
 
+// Colors (SCSS)
+$warning: #fdeedb;
+$warning-contrast: #ba7128;
+$info: #ddecfe;
+$info-contrast: #333ee9;
+$error: #fce5e6;
+$error-contrast: #df1f23;
+$brand-primary: #2db94b;
+
+// Colors (CSS variables for Tailwind)
+@theme {
+  --color-warning: #fdeedb;
+  --color-warning-contrast: #ba7128;
+  --color-info: #ddecfe;
+  --color-info-contrast: #333ee9;
+  --color-error: #fce5e6;
+  --color-error-contrast: #df1f23;
+  --color-brand-primary: #2db94b;
+}
+
 // General
 
 span a {

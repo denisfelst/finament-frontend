@@ -1,6 +1,13 @@
 @if (open()) {
 <div class="fixed inset-0 flex items-center justify-center bg-black/40">
-  <div class="bg-white w-[90%] p-4 rounded shadow">
+  <div
+    class="w-[90%] p-4 rounded border-4 shadow"
+    [class]="
+      warning()
+        ? 'bg-warning border-warning-contrast'
+        : 'bg-info border-info-contrast'
+    "
+  >
     <p>{{ mainText() }}</p>
     <div class="mt-4 flex gap-2 justify-around">
       <app-button
@@ -8,7 +15,7 @@
         [size]="ButtonSize.Medium"
         [design]="ButtonType.Secondary"
       >
-        {{ cancelText() }}
+        <span>{{ cancelText() }}</span>
       </app-button>
 
       <app-button
@@ -16,7 +23,7 @@
         [size]="ButtonSize.Medium"
         [design]="ButtonType.Secondary"
       >
-        {{ yesText() }}
+        <span>{{ yesText() }}</span>
       </app-button>
     </div>
   </div>

@@ -138,6 +138,8 @@
 
   <app-confirmation-modal
     [open]="confirmation()"
+    [mainText]="deleteMainText()"
+    [warning]="deleteWarning()"
     (submission)="onDelete($event)"
   ></app-confirmation-modal>
 </app-full-modal>
