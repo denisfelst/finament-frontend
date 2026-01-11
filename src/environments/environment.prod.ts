@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://finament-backend-befbf6c3duhnh4ft.centralus-01.azurewebsites.net',
+  baseUrl: 'https://finament-fmd7ajf0fxgsd3eu.westeurope-01.azurewebsites.net',
 };
