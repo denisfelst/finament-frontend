@@ -8,12 +8,8 @@
 }
 
 .nav-item.active {
-  @apply text-black;
-}
-
-/* Center add button */
-.nav-add {
-  @apply mt-[24px];
+  @apply text-black border-t-2;
+  border-color: var(--color-brand-primary);
 }
 
 .add-icon {
