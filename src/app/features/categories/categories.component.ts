@@ -98,10 +98,9 @@ export class CategoriesComponent {
   }
 
   private updateCategory() {
-    console.log(this.form.value.monthlyLimit);
     const payload: UpdateCategoryDto = {
       name: this.form.value.name ?? null,
-      monthlyLimit: this.form.value.monthlyLimit ?? 1,
+      monthlyLimit: this.form.value.monthlyLimit ?? 100,
       color: this.form.value.color ?? null,
     };
     this.categoryStore.update(this.currentCategory()!.id, payload);

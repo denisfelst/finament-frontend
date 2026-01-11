@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, output } from '@angular/core';
+import { Component, effect, inject, input, output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -26,34 +26,38 @@ export class ExpenseFormComponent {
   submission = output<IExpenseFormData>();
   delete = output();
 
-  form = computed(() => {
-    return this.formBuilder.group({
-      id: [this.expense()?.id ?? null],
-      amount: [
-        this.expense()?.amount ?? 1,
-        [
-          Validators.required,
-          this.amountValidator.bind(this),
-          Validators.min(1),
-        ],
+  form = this.formBuilder.group({
+    id: [null as number | null],
+    amount: [
+      1 as number | null,
+      [
+        Validators.required,
+        this.amountValidator.bind(this),
+        Validators.min(1),
       ],
-      category: [this.expense()?.categoryId ?? 0, Validators.required],
-      date: [
-        this.expense()?.date
-          ? this.toDateInputValue(this.expense()!.date)
-          : this.todayISO(),
-        [Validators.required, this.dateInFutureValidator.bind(this)],
-      ],
-      tag: [this.expense()?.tag ?? null],
-    });
+    ],
+    category: [0 as number | null, Validators.required],
+    date: [
+      this.todayISO() as string | null,
+      [Validators.required, this.dateInFutureValidator.bind(this)],
+    ],
+    tag: [null as string | null],
   });
 
-  amount = computed<number>(() => this.form().get('amount')?.value ?? 0);
-  category = computed<number>(() => this.form().get('category')?.value ?? 0);
-  date = computed<string>(() => this.form().get('date')?.value ?? '');
-  tag = computed<string | null>(() => this.form().get('tag')?.value ?? null);
-
   ButtonType = ButtonType;
+
+  constructor() {
+    effect(() => {
+      const expense = this.expense();
+      this.form.patchValue({
+        id: expense?.id ?? null,
+        amount: expense?.amount ?? 1,
+        category: expense?.categoryId ?? 0,
+        date: expense?.date ? this.toDateInputValue(expense.date) : this.todayISO(),
+        tag: expense?.tag ?? null,
+      });
+    });
+  }
 
   private amountValidator(control: FormControl): ValidationErrors | null {
     if (!control.value) {
@@ -86,7 +90,7 @@ export class ExpenseFormComponent {
   }
 
   roundAmount() {
-    const control = this.form().controls.amount;
+    const control = this.form.controls.amount;
     const value = control.value;
 
     if (value === null || value === undefined || Number.isNaN(value)) {
@@ -104,7 +108,7 @@ export class ExpenseFormComponent {
   }
 
   toCamelCaseTag(): void {
-    const control = this.form().controls.tag;
+    const control = this.form.controls.tag;
     let value: string = control.value ?? '';
 
     if (!value.trim()) {
@@ -135,10 +139,10 @@ export class ExpenseFormComponent {
 
   onSubmit() {
     this.submission.emit({
-      amount: this.amount(),
-      category: this.category(),
-      date: this.date(),
-      tag: this.tag(),
+      amount: this.form.value.amount ?? 1,
+      category: this.form.value.category ?? 0,
+      date: this.form.value.date ?? this.todayISO(),
+      tag: this.form.value.tag ?? null,
     });
   }
 

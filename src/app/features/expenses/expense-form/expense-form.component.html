@@ -1,4 +1,4 @@
-<form [formGroup]="form()" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="form-field">
     <label for="amount">Amount *</label>
     <input
@@ -11,9 +11,9 @@
     />
   </div>
 
-  @if (form().controls.amount.errors?.['notInteger']) {
+  @if (form.controls.amount.errors?.['notInteger']) {
   <div class="form-field-error">Amount must be a whole number</div>
-  } @if (form().controls.amount.errors?.['min']) {
+  } @if (form.controls.amount.errors?.['min']) {
   <div class="form-field-error">Amount must be at least 1</div>
   }
 
@@ -34,7 +34,7 @@
   <div class="form-field">
     <label for="date">Date *</label>
     <input id="date" formControlName="date" class="border-2" type="date" />
-    @if(form().controls.date.errors?.['dateInFuture']) {
+    @if(form.controls.date.errors?.['dateInFuture']) {
     <div class="text-[#f00]">Date cannot be in the future</div>
     }
   </div>
@@ -58,7 +58,7 @@
   </app-button>
   }
 
-  <app-button [disabled]="!form().valid" type="submit">
+  <app-button [disabled]="!form.valid" type="submit">
     {{ expense() === null ? "Add" : "Save" }}
   </app-button>
 </form>
