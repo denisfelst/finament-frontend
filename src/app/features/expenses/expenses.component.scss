@@ -1,5 +1,9 @@
 @use "tailwindcss";
 
+:host {
+  font-family: inherit;
+}
+
 .expense-list {
   @apply flex flex-col divide-y divide-gray-200;
 }

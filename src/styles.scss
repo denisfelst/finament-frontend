@@ -23,8 +23,57 @@ $brand-primary: #2db94b;
 
 // General
 
-span a {
-  @apply text-blue-400;
+body {
+  font-family: "Nunito Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100, "YTLC" 500;
+}
+
+// Typography
+h1 {
+  @apply text-2xl font-bold;
+}
+
+h2 {
+  @apply text-xl font-semibold;
+}
+
+h3 {
+  @apply text-lg font-medium;
+}
+
+h4 {
+  @apply text-base font-medium;
+}
+
+p {
+  @apply text-base;
+}
+
+span {
+  @apply text-base;
+}
+
+small {
+  @apply text-sm text-gray-600;
+}
+
+strong {
+  @apply font-semibold;
+}
+
+a {
+  @apply text-blue-500 hover:text-blue-700 underline;
+}
+
+nav a {
+  @apply text-black hover:text-blue-700 no-underline text-base;
+}
+
+li {
+  @apply text-base mb-1;
 }
 
 // Form Fields

@@ -1,5 +1,9 @@
 @use "tailwindcss";
 
+:host {
+  font-family: inherit;
+}
+
 .category-list {
   @apply flex flex-col;
 }
