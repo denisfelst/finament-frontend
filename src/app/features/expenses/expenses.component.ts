@@ -9,6 +9,7 @@ import { ErrorComponent } from '../../shared/toast/error/error.component';
 import { LoadingComponent } from '../../shared/toast/loading/loading.component';
 import { FullFullModalComponent } from '../../shared/modal/full-modal/full-modal.component';
 import { ConfirmationFullModalComponent } from '../../shared/modal/confirmation-modal/confirmation-modal.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-expenses',
@@ -18,6 +19,7 @@ import { ConfirmationFullModalComponent } from '../../shared/modal/confirmation-
     ErrorComponent,
     LoadingComponent,
     ConfirmationFullModalComponent,
+    RouterLink,
   ],
   templateUrl: './expenses.component.html',
   styleUrl: './expenses.component.scss',

@@ -6,7 +6,7 @@
 <app-error [error]="error()"></app-error>
 }
 
-<!-- content  -->
+<!-- state  -->
 @if (!loading() && !error()) { @if(message()){
 <div class="bg-green-400">
   {{ message() }}
@@ -17,6 +17,10 @@
 <app-loading></app-loading>
 }
 
+<!-- expenses list -->
+@if(orderedExpenses().length === 0){
+<span>No expenses. <a routerLink="/add-expense">Create one now!</a></span>
+} @else {
 <ul class="expense-list">
   @for (exp of orderedExpenses(); track exp.id) {
   <li>
@@ -49,7 +53,9 @@
   </li>
   }
 </ul>
+}
 
+<!-- modal -->
 <app-full-modal
   [name]="currentModal() ?? ''"
   [open]="currentModal() !== null"

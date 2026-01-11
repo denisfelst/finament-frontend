@@ -18,6 +18,11 @@
     Add
   </app-button>
 </div>
+
+<!-- categories list -->
+@if(orderedCategories().length === 0){
+<span>No categories. Go ahead and create one!</span>
+} @else {
 <ul class="category-list">
   @for (cat of orderedCategories(); track cat.id) {
   <li>
@@ -49,8 +54,7 @@
   </li>
   }
 </ul>
-
-}
+} }
 
 <app-full-modal
   [name]="currentCategory()?.name ?? 'New Category'"
