@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { UserStore } from '../../shared/store/user.store';
 import { AuthStore } from '../../shared/store/auth.store';
 import { ButtonComponent } from '../../shared/elements/button/button.component';
@@ -7,7 +8,7 @@ import { ToastStateGroupComponent } from '../../shared/toast/toast-state-group/t
 
 @Component({
   selector: 'app-profile',
-  imports: [ButtonComponent, ToastStateGroupComponent],
+  imports: [ButtonComponent, ToastStateGroupComponent, FormsModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
@@ -18,15 +19,44 @@ export class ProfileComponent {
   currentUser = this.userStore.currentUser;
   loading = this.userStore.loading;
   error = this.userStore.error;
+  message = this.userStore.message;
 
   ButtonType = ButtonTypeEnum;
 
-  private loadUser() {
-    this.userStore.loadMe();
+  name = '';
+  email = '';
+  editMode = false;
+
+  constructor() {
+    effect(() => {
+      const user = this.currentUser();
+      if (user) {
+        this.name = user.name ?? '';
+        this.email = user.email ?? '';
+      }
+    });
   }
 
   ngOnInit() {
-    this.loadUser();
+    this.userStore.loadMe();
+  }
+
+  onEdit() {
+    this.editMode = true;
+  }
+
+  onCancel() {
+    this.editMode = false;
+    const user = this.currentUser();
+    if (user) {
+      this.name = user.name ?? '';
+      this.email = user.email ?? '';
+    }
+  }
+
+  onSave() {
+    this.userStore.updateMe({ name: this.name, email: this.email });
+    this.editMode = false;
   }
 
   onLogout() {

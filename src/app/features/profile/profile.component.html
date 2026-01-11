@@ -3,12 +3,53 @@
 <app-toast-state-group
   [error]="error()"
   [loading]="loading()"
+  [message]="message()"
 ></app-toast-state-group>
 
 @if (currentUser() && !loading()) {
-<div>
+<div class="space-y-4">
+  @if (editMode) {
+  <div class="form-field">
+    <label for="name">Name:</label>
+    <input
+      id="name"
+      type="text"
+      class="border rounded px-2 py-1"
+      [(ngModel)]="name"
+    />
+  </div>
+  <div class="form-field">
+    <label for="email">Email:</label>
+    <input
+      id="email"
+      type="email"
+      class="border rounded px-2 py-1"
+      [(ngModel)]="email"
+    />
+  </div>
+  <div class="flex gap-2 justify-center">
+    <app-button
+      [design]="ButtonType.Secondary"
+      [disabled]="loading()"
+      (clicked)="onCancel()"
+    >
+      Cancel
+    </app-button>
+    <app-button
+      [design]="ButtonType.Primary"
+      [disabled]="loading()"
+      (clicked)="onSave()"
+    >
+      Save
+    </app-button>
+  </div>
+  } @else {
   <p>Name: {{ currentUser()!.name }}</p>
   <p>Email: {{ currentUser()!.email }}</p>
+  <app-button [design]="ButtonType.Secondary" (clicked)="onEdit()">
+    Edit
+  </app-button>
+  }
 </div>
 }
 
