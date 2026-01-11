@@ -218,5 +218,6 @@ export class CategoriesComponent {
 
     this.deleteCategory();
     this.confirmation.set(false);
+    this.currentModal.set(null);
   }
 }
