@@ -1,4 +1,4 @@
-export enum ButtonSize {
+export enum ButtonSizeEnum {
   Small = 'sm',
   Medium = 'md',
   Large = 'lg',

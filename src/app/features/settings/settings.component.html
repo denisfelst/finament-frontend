@@ -1,15 +1,29 @@
 <h2>Settings</h2>
 
-@if (loading()) {
-<app-loading></app-loading>
-} @if (error()) {
-<app-error [error]="error()"> </app-error>
-} @if (settings() && !loading()) {
-<div>
+<app-toast-state-group
+  [error]="error()"
+  [loading]="loading()"
+></app-toast-state-group>
+
+<div class="border-b-1 py-4 mb-4">
   <a class="text-blue-500" href="/profile">My Profile</a>
 </div>
-<div>
-  <p>Currency: {{ settings()!.currency }}</p>
+
+@if (settings() && !loading()) {
+<div class="space-y-4">
+  <div class="flex items-center gap-4">
+    <label for="currency">Currency:</label>
+    <select
+      id="currency"
+      class="border rounded px-2 py-1"
+      [ngModel]="settings()!.currency"
+      (ngModelChange)="onCurrencyChange($event)"
+    >
+      @for (currency of currencies; track currency) {
+      <option [value]="currency">{{ currency }}</option>
+      }
+    </select>
+  </div>
   <p>Cycle start day: {{ settings()!.cycleStartDay }}</p>
 </div>
 }

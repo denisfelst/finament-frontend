@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
-import { ButtonType } from '../../models/button-type.enum';
-import { ButtonSize } from '../../models/button-size.enum';
+import { ButtonTypeEnum } from '../../models/button-type.enum';
+import { ButtonSizeEnum } from '../../models/button-size.enum';
 
 @Component({
   selector: 'app-button',
@@ -11,8 +11,8 @@ import { ButtonSize } from '../../models/button-size.enum';
 export class ButtonComponent {
   // inputs
   disabled = input<boolean>(false);
-  design = input<ButtonType>(ButtonType.Primary);
-  size = input<ButtonSize>(ButtonSize.Medium); // mobile-first default
+  design = input<ButtonTypeEnum>(ButtonTypeEnum.Primary);
+  size = input<ButtonSizeEnum>(ButtonSizeEnum.Medium); // mobile-first default
   type = input<'button' | 'submit' | 'reset'>('button');
   popoverTarget = input<string | null>(null);
 
@@ -21,8 +21,8 @@ export class ButtonComponent {
   hovered = output<MouseEvent>();
   left = output<MouseEvent>();
 
-  ButtonType = ButtonType;
-  ButtonSize = ButtonSize;
+  ButtonType = ButtonTypeEnum;
+  ButtonSize = ButtonSizeEnum;
 
   onClick(event: MouseEvent) {
     if (this.disabled()) {

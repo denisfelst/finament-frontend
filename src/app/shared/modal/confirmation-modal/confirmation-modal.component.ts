@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
-import { ButtonType } from '../../models/button-type.enum';
-import { ButtonSize } from '../../models/button-size.enum';
+import { ButtonTypeEnum } from '../../models/button-type.enum';
+import { ButtonSizeEnum } from '../../models/button-size.enum';
 import { ButtonComponent } from '../../elements/button/button.component';
 
 @Component({
@@ -18,8 +18,8 @@ export class ConfirmationFullModalComponent {
 
   submission = output<boolean>();
 
-  ButtonSize = ButtonSize;
-  ButtonType = ButtonType;
+  ButtonSize = ButtonSizeEnum;
+  ButtonType = ButtonTypeEnum;
 
   onCancel() {
     this.submission.emit(false);

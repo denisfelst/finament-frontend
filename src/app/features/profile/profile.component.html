@@ -1,10 +1,11 @@
 <h2>Profile</h2>
 
-@if (loading()) {
-<app-loading></app-loading>
-} @if (error()) {
-<app-error [error]="error()"></app-error>
-} @if (currentUser() && !loading()) {
+<app-toast-state-group
+  [error]="error()"
+  [loading]="loading()"
+></app-toast-state-group>
+
+@if (currentUser() && !loading()) {
 <div>
   <p>Name: {{ currentUser()!.name }}</p>
   <p>Email: {{ currentUser()!.email }}</p>

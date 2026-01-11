@@ -10,7 +10,7 @@ import { ICategory } from '../../categories/models/category.interface';
 import { IExpense } from '../models/expense.interface';
 import { IExpenseFormData } from '../models/expense-form-data.interface';
 import { ButtonComponent } from '../../../shared/elements/button/button.component';
-import { ButtonType } from '../../../shared/models/button-type.enum';
+import { ButtonTypeEnum } from '../../../shared/models/button-type.enum';
 import { CurrencyPipe } from '../../../shared/pipes/currency.pipe';
 
 @Component({
@@ -41,7 +41,7 @@ export class ExpenseFormComponent {
     tag: [null as string | null],
   });
 
-  ButtonType = ButtonType;
+  ButtonType = ButtonTypeEnum;
 
   constructor() {
     effect(() => {

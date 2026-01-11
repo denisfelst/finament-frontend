@@ -1,12 +1,13 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { SettingStore } from '../../shared/store/setting.store';
-import { ErrorComponent } from '../../shared/toast/error/error.component';
-import { LoadingComponent } from '../../shared/toast/loading/loading.component';
+import { ToastStateGroupComponent } from '../../shared/toast/toast-state-group/toast-state-group.component';
+import { CurrencyEnum } from './models/currency.enum';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [ErrorComponent, LoadingComponent],
+  imports: [ToastStateGroupComponent, FormsModule],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
 })
@@ -17,7 +18,13 @@ export class SettingsComponent {
   loading = this.settingStore.loading;
   error = this.settingStore.error;
 
+  currencies = Object.values(CurrencyEnum);
+
   ngOnInit() {
     this.settingStore.load();
+  }
+
+  onCurrencyChange(currency: string) {
+    this.settingStore.upsert({ currency });
   }
 }
