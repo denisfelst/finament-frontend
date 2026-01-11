@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="form-field">
-    <label for="amount">Amount *</label>
+    <label for="amount">Amount ({{ "" | appCurrency }}) *</label>
     <input
       id="amount"
       formControlName="amount"

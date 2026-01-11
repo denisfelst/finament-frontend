@@ -15,6 +15,7 @@ import { ButtonComponent } from '../../shared/elements/button/button.component';
 import { ButtonSize } from '../../shared/models/button-size.enum';
 import { ButtonType } from '../../shared/models/button-type.enum';
 import { ToastStateGroupComponent } from '../../shared/toast/toast-state-group/toast-state-group.component';
+import { CurrencyPipe } from '../../shared/pipes/currency.pipe';
 
 @Component({
   selector: 'app-categories',
@@ -24,6 +25,7 @@ import { ToastStateGroupComponent } from '../../shared/toast/toast-state-group/t
     ConfirmationFullModalComponent,
     ButtonComponent,
     ToastStateGroupComponent,
+    CurrencyPipe,
   ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',

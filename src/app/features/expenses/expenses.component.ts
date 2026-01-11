@@ -9,6 +9,7 @@ import { FullFullModalComponent } from '../../shared/modal/full-modal/full-modal
 import { ConfirmationFullModalComponent } from '../../shared/modal/confirmation-modal/confirmation-modal.component';
 import { RouterLink } from '@angular/router';
 import { ToastStateGroupComponent } from '../../shared/toast/toast-state-group/toast-state-group.component';
+import { CurrencyPipe } from '../../shared/pipes/currency.pipe';
 
 @Component({
   selector: 'app-expenses',
@@ -18,6 +19,7 @@ import { ToastStateGroupComponent } from '../../shared/toast/toast-state-group/t
     ConfirmationFullModalComponent,
     RouterLink,
     ToastStateGroupComponent,
+    CurrencyPipe,
   ],
   templateUrl: './expenses.component.html',
   styleUrl: './expenses.component.scss',

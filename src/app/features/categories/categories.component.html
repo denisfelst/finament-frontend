@@ -43,8 +43,7 @@
 
       <!-- Right: amount -->
       <div class="category-amount">
-        <!-- TODO: currency PIPE -->
-        <div class="category-value">{{ cat.monthlyLimit }} €</div>
+        <div class="category-value">{{ cat.monthlyLimit | appCurrency }}</div>
         <div class="category-period">/ month</div>
       </div>
 
@@ -88,7 +87,9 @@
       </div>
 
       <div class="form-field">
-        <label for="monthlyLimit">Monthly Estimate *</label>
+        <label for="monthlyLimit"
+          >Monthly Estimate ({{ "" | appCurrency }}) *</label
+        >
         <input
           id="monthlyLimit"
           formControlName="monthlyLimit"

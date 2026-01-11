@@ -11,10 +11,11 @@ import { IExpense } from '../models/expense.interface';
 import { IExpenseFormData } from '../models/expense-form-data.interface';
 import { ButtonComponent } from '../../../shared/elements/button/button.component';
 import { ButtonType } from '../../../shared/models/button-type.enum';
+import { CurrencyPipe } from '../../../shared/pipes/currency.pipe';
 
 @Component({
   selector: 'app-expense-form',
-  imports: [ReactiveFormsModule, ButtonComponent],
+  imports: [ReactiveFormsModule, ButtonComponent, CurrencyPipe],
   templateUrl: './expense-form.component.html',
   styleUrl: './expense-form.component.scss',
 })
@@ -30,11 +31,7 @@ export class ExpenseFormComponent {
     id: [null as number | null],
     amount: [
       1 as number | null,
-      [
-        Validators.required,
-        this.amountValidator.bind(this),
-        Validators.min(1),
-      ],
+      [Validators.required, this.amountValidator.bind(this), Validators.min(1)],
     ],
     category: [0 as number | null, Validators.required],
     date: [
@@ -53,7 +50,9 @@ export class ExpenseFormComponent {
         id: expense?.id ?? null,
         amount: expense?.amount ?? 1,
         category: expense?.categoryId ?? 0,
-        date: expense?.date ? this.toDateInputValue(expense.date) : this.todayISO(),
+        date: expense?.date
+          ? this.toDateInputValue(expense.date)
+          : this.todayISO(),
         tag: expense?.tag ?? null,
       });
     });
