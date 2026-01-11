@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { CreateCategoryDto, UpdateCategoryDto } from '../../core/swagger';
 
 import { ICategory } from './models/category.interface';
@@ -44,29 +44,34 @@ export class CategoriesComponent {
   message = this.categoryStore.message;
   confirmation = signal<boolean>(false);
 
-  form = computed(() => {
-    return this.formBuilder.group({
-      name: [
-        this.currentCategory()?.name ?? null,
-        [Validators.required, this.nameValidator.bind(this)],
-      ],
-      monthlyLimit: [
-        this.currentCategory()?.monthlyLimit ?? null,
-        [Validators.required, Validators.min(1)],
-      ],
-      color: [
-        this.currentCategory()?.color ?? null,
-        [Validators.required, this.hexColorValidator.bind(this)],
-      ],
-    });
+  form = this.formBuilder.group({
+    name: [
+      null as string | null,
+      [Validators.required, this.nameValidator.bind(this)],
+    ],
+    monthlyLimit: [
+      null as number | null,
+      [Validators.required, Validators.min(1)],
+    ],
+    color: [
+      null as string | null,
+      [Validators.required, this.hexColorValidator.bind(this)],
+    ],
   });
-
-  name = computed(() => this.form().get('name')?.value ?? 'name');
-  monthlyLimit = computed(() => this.form().get('monthlyLimit')?.value ?? 100);
-  color = computed(() => this.form().get('color')?.value ?? '#FFFFFF');
 
   ButtonSize = ButtonSize;
   ButtonType = ButtonType;
+
+  constructor() {
+    effect(() => {
+      const category = this.currentCategory();
+      this.form.patchValue({
+        name: category?.name ?? null,
+        monthlyLimit: category?.monthlyLimit ?? null,
+        color: category?.color ?? null,
+      });
+    });
+  }
 
   orderedCategories = computed(() => {
     // alphabetical order
@@ -85,21 +90,20 @@ export class CategoriesComponent {
 
   private createCategory() {
     const payload: CreateCategoryDto = {
-      name: this.name(),
-      monthlyLimit: this.monthlyLimit(),
-      color: this.color(),
+      name: this.form.value.name ?? null,
+      monthlyLimit: this.form.value.monthlyLimit ?? 1,
+      color: this.form.value.color ?? null,
     };
-
     this.categoryStore.create(payload);
   }
 
   private updateCategory() {
+    console.log(this.form.value.monthlyLimit);
     const payload: UpdateCategoryDto = {
-      name: this.name(),
-      monthlyLimit: this.monthlyLimit(),
-      color: this.color(),
+      name: this.form.value.name ?? null,
+      monthlyLimit: this.form.value.monthlyLimit ?? 1,
+      color: this.form.value.color ?? null,
     };
-
     this.categoryStore.update(this.currentCategory()!.id, payload);
   }
 
@@ -132,7 +136,7 @@ export class CategoriesComponent {
   }
 
   capitalizeName() {
-    const control = this.form().controls.name;
+    const control = this.form.controls.name;
     let value: string = control.value ?? '';
 
     if (!value.trim()) {
@@ -150,7 +154,7 @@ export class CategoriesComponent {
   }
 
   toHexFormat(): void {
-    const control = this.form().controls.color;
+    const control = this.form.controls.color;
     let value: string = control.value ?? '';
 
     if (!value.trim()) return;

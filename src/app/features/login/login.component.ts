@@ -18,14 +18,14 @@ import { ButtonComponent } from '../../shared/elements/button/button.component';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  private fb = inject(FormBuilder);
+  private formBuilder = inject(FormBuilder);
   private authStore = inject(AuthStore);
 
   loading = signal(false);
   error = this.authStore.error;
   isLogged = this.authStore.isAuthenticated;
 
-  form = this.fb.group({
+  form = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });

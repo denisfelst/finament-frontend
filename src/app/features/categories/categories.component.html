@@ -68,7 +68,7 @@
   <app-loading></app-loading>
   }
 
-  <form [formGroup]="form()" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <section class="flex flex-col gap-4 mb-4">
       <div class="form-field">
         <label for="name">Name *</label>
@@ -81,8 +81,8 @@
           placeholder="My Category"
           (blur)="capitalizeName()"
         />
-        @if (form().controls.name) { @if
-        (form().controls.name.errors?.['minLengthName']) {
+        @if (form.controls.name) { @if
+        (form.controls.name.errors?.['minLengthName']) {
         <div class="text-[#f00]">Name must be at least 3 characters long</div>
         } }
       </div>
@@ -97,7 +97,7 @@
           placeholder="100"
           min="1"
         />
-        @if (form().controls.monthlyLimit.errors?.['min']) {
+        @if (form.controls.monthlyLimit.errors?.['min']) {
         <div class="text-[#f00]">Monthly estimate must be at least 1</div>
         }
       </div>
@@ -114,8 +114,8 @@
           maxlength="7"
           (blur)="toHexFormat()"
         />
-        @if (form().controls.color) { @if
-        (form().controls.color.errors?.['invalidHexColor']) {
+        @if (form.controls.color) { @if
+        (form.controls.color.errors?.['invalidHexColor']) {
         <div class="text-[#f00]">Color must be in the format #09AAFF</div>
         } }
       </div>
@@ -128,7 +128,7 @@
     }
 
     <app-button
-      [disabled]="!form().valid"
+      [disabled]="!form.valid"
       type="submit"
       [size]="ButtonSize.Medium"
     >

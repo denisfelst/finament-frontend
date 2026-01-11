@@ -12,7 +12,6 @@ export class FullFullModalComponent {
   close = output<void>();
 
   onBackdropClick() {
-    console.log('onBackdropClick :');
     this.close.emit();
   }
 }
