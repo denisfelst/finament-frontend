@@ -5,21 +5,19 @@ import { ExpenseFormComponent } from './expense-form/expense-form.component';
 import { IExpenseFormData } from './models/expense-form-data.interface';
 import { ExpenseStore } from '../../shared/store/expense.store';
 import { CategoryStore } from '../../shared/store/category.store';
-import { ErrorComponent } from '../../shared/toast/error/error.component';
-import { LoadingComponent } from '../../shared/toast/loading/loading.component';
 import { FullFullModalComponent } from '../../shared/modal/full-modal/full-modal.component';
 import { ConfirmationFullModalComponent } from '../../shared/modal/confirmation-modal/confirmation-modal.component';
 import { RouterLink } from '@angular/router';
+import { ToastStateGroupComponent } from '../../shared/toast/toast-state-group/toast-state-group.component';
 
 @Component({
   selector: 'app-expenses',
   imports: [
     FullFullModalComponent,
     ExpenseFormComponent,
-    ErrorComponent,
-    LoadingComponent,
     ConfirmationFullModalComponent,
     RouterLink,
+    ToastStateGroupComponent,
   ],
   templateUrl: './expenses.component.html',
   styleUrl: './expenses.component.scss',

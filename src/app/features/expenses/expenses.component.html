@@ -1,24 +1,14 @@
 <h2>Expenses</h2>
 
-@if (loading()) {
-<app-loading></app-loading>
-} @if (error()) {
-<app-error [error]="error()"></app-error>
-}
-
 <!-- state  -->
-@if (!loading() && !error()) { @if(message()){
-<div class="bg-green-400">
-  {{ message() }}
-</div>
-} @if(error()){
-<app-error [error]="error()"></app-error>
-} @if (loading()) {
-<app-loading></app-loading>
-}
+<app-toast-state-group
+  [loading]="loading()"
+  [error]="error()"
+  [message]="message()"
+></app-toast-state-group>
 
 <!-- expenses list -->
-@if(orderedExpenses().length === 0){
+@if(orderedExpenses().length === 0 && !loading()) {
 <span>No expenses. <a routerLink="/add-expense">Create one now!</a></span>
 } @else {
 <ul class="expense-list">
@@ -55,22 +45,27 @@
 </ul>
 }
 
-<!-- modal -->
+<!-- modals -->
 <app-full-modal
   [name]="currentModal() ?? ''"
   [open]="currentModal() !== null"
   (close)="setModal(null)"
 >
+  <app-toast-state-group
+    [loading]="loading()"
+    [error]="error()"
+    [message]="message()"
+  ></app-toast-state-group>
+
   <app-expense-form
     [categories]="categories()"
     [expense]="currentExpense()"
     (submission)="onSubmit($event)"
     (delete)="handleDeletePress()"
   ></app-expense-form>
-</app-full-modal>
 
-<app-confirmation-modal
-  [open]="confirmation()"
-  (submission)="onDelete($event)"
-></app-confirmation-modal>
-}
+  <app-confirmation-modal
+    [open]="confirmation()"
+    (submission)="onDelete($event)"
+  ></app-confirmation-modal>
+</app-full-modal>

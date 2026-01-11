@@ -1,0 +1,7 @@
+@if(message()){
+<app-message [text]="message()"></app-message>
+} @if(error()){
+<app-error [error]="error()"></app-error>
+} @if (loading()) {
+<app-loading></app-loading>
+}

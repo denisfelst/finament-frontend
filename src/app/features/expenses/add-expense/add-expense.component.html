@@ -1,12 +1,12 @@
 <h2>Add Expense</h2>
 
-@if (loading()) {
-<app-loading></app-loading>
-} @if (message()) {
-<div class="bg-green-400">
-  {{ message() }}
-</div>
-} @if (!loading() && !error()) {
+<app-toast-state-group
+  [loading]="loading()"
+  [error]="error()"
+  [message]="message()"
+></app-toast-state-group>
+
+@if (!loading() && !error()) {
 <app-expense-form
   [categories]="categories()"
   (submission)="onSubmit($event)"

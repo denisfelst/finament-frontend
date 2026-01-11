@@ -1,15 +1,15 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CreateExpenseDto } from '../../../core/swagger';
 import { ExpenseFormComponent } from '../expense-form/expense-form.component';
 import { IExpenseFormData } from '../models/expense-form-data.interface';
-import { LoadingComponent } from '../../../shared/toast/loading/loading.component';
 import { ExpenseStore } from '../../../shared/store/expense.store';
 import { CategoryStore } from '../../../shared/store/category.store';
+import { ToastStateGroupComponent } from '../../../shared/toast/toast-state-group/toast-state-group.component';
 
 @Component({
   selector: 'app-add-expense',
   standalone: true,
-  imports: [ExpenseFormComponent, LoadingComponent],
+  imports: [ExpenseFormComponent, ToastStateGroupComponent],
   templateUrl: './add-expense.component.html',
   styleUrl: './add-expense.component.scss',
 })

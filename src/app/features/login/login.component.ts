@@ -2,18 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginRequestDto } from '../../core/swagger';
 import { AuthStore } from '../../shared/store/auth.store';
-import { ErrorComponent } from '../../shared/toast/error/error.component';
-import { LoadingComponent } from '../../shared/toast/loading/loading.component';
 import { ButtonComponent } from '../../shared/elements/button/button.component';
+import { ToastStateGroupComponent } from '../../shared/toast/toast-state-group/toast-state-group.component';
 
 @Component({
   selector: 'app-login',
-  imports: [
-    ReactiveFormsModule,
-    ErrorComponent,
-    LoadingComponent,
-    ButtonComponent,
-  ],
+  imports: [ReactiveFormsModule, ButtonComponent, ToastStateGroupComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

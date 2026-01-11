@@ -1,11 +1,10 @@
 <div class="p-4">
   <h2>Login</h2>
 
-  @if (error()) {
-  <app-error [error]="error()"></app-error>
-  } @if (loading()) {
-  <app-loading></app-loading>
-  }
+  <app-toast-state-group
+    [loading]="loading()"
+    [error]="error()"
+  ></app-toast-state-group>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-field">

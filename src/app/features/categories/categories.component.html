@@ -1,10 +1,10 @@
 <h2>Categories</h2>
 
-@if (loading()) {
-<app-loading></app-loading>
-} @if (error()) {
-<app-error [error]="error()"></app-error>
-}
+<app-toast-state-group
+  [loading]="loading()"
+  [message]="message()"
+  [error]="error()"
+></app-toast-state-group>
 
 <!-- content  -->
 @if (!loading() && !error()){
@@ -20,7 +20,7 @@
 </div>
 
 <!-- categories list -->
-@if(orderedCategories().length === 0){
+@if(orderedCategories().length === 0 && !loading()) {
 <span>No categories. Go ahead and create one!</span>
 } @else {
 <ul class="category-list">
@@ -56,21 +56,17 @@
 </ul>
 } }
 
+<!-- modals -->
 <app-full-modal
   [name]="currentCategory()?.name ?? 'New Category'"
   [open]="currentModal() !== null"
   (close)="setModal(null)"
 >
-  @if(message()){
-  <div class="bg-green-400">
-    {{ message() }}
-  </div>
-  } @if(error()){
-  <app-error [error]="error()"></app-error>
-
-  } @if (loading()) {
-  <app-loading></app-loading>
-  }
+  <app-toast-state-group
+    [message]="message()"
+    [error]="error()"
+    [message]="message()"
+  ></app-toast-state-group>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <section class="flex flex-col gap-4 mb-4">
