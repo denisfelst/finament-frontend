@@ -41,10 +41,17 @@
         </div>
       </div>
 
-      <!-- Right: amount -->
+      <!-- Right: spent / limit -->
       <div class="category-amount">
-        <div class="category-value">{{ cat.monthlyLimit | appCurrency }}</div>
-        <div class="category-period">/ month</div>
+        <span
+          class="category-value"
+          [class.over-limit]="cat.totalSpent > cat.monthlyLimit"
+        >
+          {{ cat.totalSpent | appCurrency }}
+        </span>
+        <span class="category-period"
+          >{{ cat.monthlyLimit | appCurrency }} / m</span
+        >
       </div>
 
       <!-- Chevron -->

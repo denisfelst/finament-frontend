@@ -37,6 +37,10 @@
 
 .category-value {
   @apply text-base font-medium text-black;
+
+  &.over-limit {
+    color: var(--color-error-contrast);
+  }
 }
 
 .category-period {

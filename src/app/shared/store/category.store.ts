@@ -33,6 +33,7 @@ export class CategoryStore {
     this.api.getApiCategories().subscribe({
       next: (res) => {
         this.categories.set(res);
+        console.log('res :', res);
         this.loading.set(false);
       },
       error: (e) => {

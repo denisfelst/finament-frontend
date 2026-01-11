@@ -4,4 +4,5 @@ export interface ICategory {
   monthlyLimit: number;
   color: string;
   expenseCount: number;
+  totalSpent: number;
 }
