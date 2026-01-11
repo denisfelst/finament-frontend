@@ -1,0 +1,26 @@
+@use "tailwindcss";
+
+.nav-item {
+  @apply flex items-center justify-center
+         w-[48px] h-[48px]
+         text-gray-400
+         active:text-black;
+}
+
+.nav-item.active {
+  @apply text-black;
+}
+
+/* Center add button */
+.nav-add {
+  @apply mt-[24px];
+}
+
+.add-icon {
+  @apply flex items-center justify-center
+         w-[48px] h-[48px]
+         rounded-full
+         bg-black text-white
+         text-[24px]
+         shadow-md;
+}
